@@ -21,7 +21,7 @@ app.engine(
 );
 
 app.set('view engine', 'handlebars');
-const port = 54321; // TODO: see if port is open and change if necessary
+const port = 54321;		// can change to a different port
 
 // routes
 app.get('/', (req, res) => {
