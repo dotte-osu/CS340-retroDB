@@ -21,55 +21,67 @@ app.engine(
 );
 
 app.set('view engine', 'handlebars');
-const port = 54322;		// can change to a different port
+const port = 54322; // can change to a different port
 
 // routes
 app.get('/', (req, res) => {
 	res.redirect('/home');
 });
 
-app.get('/home', function (req, res, next) {
+app.get('/home', function(req, res, next) {
 	res.render('index', { home: true, style: 'home.css' });
 });
 
-app.get('/results', function (req, res, next) {
-	res.render('results', { browse: true, style: 'results.css'});
+app.get('/results', function(req, res, next) {
+	res.render('results', { browse: true, style: 'results.css' });
 });
 
-app.get('/game', function (req, res, next) {
+app.get('/game', function(req, res, next) {
 	res.render('game', { browse: true, style: 'results.css' });
 });
 
-app.get('/console', function (req, res, next) {
+app.get('/console', function(req, res, next) {
 	res.render('console', { browse: true, style: 'results.css' });
 });
 
-app.get('/publisher', function (req, res, next) {
+app.get('/publisher', function(req, res, next) {
 	res.render('publisher', { browse: true, style: 'results.css' });
 });
 
-app.get('/user', function (req, res, next) {
+app.get('/user', function(req, res, next) {
 	res.render('user', { user: true, style: 'user.css' });
 });
 
-app.get('/user/login', function (req, res, next) {
+app.get('/user/login', function(req, res, next) {
 	res.render('login', { login: true, style: 'login.css' });
 });
 
-app.get('/user/register', function (req, res, next) {
+app.get('/user/register', function(req, res, next) {
 	res.render('register', { register: true, style: 'login.css' });
 });
 
-app.get('/user/admin', function (req, res, next) {
+app.get('/user/admin', function(req, res, next) {
 	res.render('admin', { admin: true, style: 'admin.css' });
 });
 
-app.get('/list', function (req, res, next) {
+app.get('/list', function(req, res, next) {
 	res.render('list', { style: 'list.css' });
 });
 
-app.get('/list/create', function (req, res, next) {
+app.get('/list/create', function(req, res, next) {
 	res.render('create', { style: 'create.css' });
+});
+
+app.post('/user/login', function(req, res, next) {
+	res.redirect('/user');
+});
+
+app.post('/user/register', function(req, res, next) {
+	res.redirect('/user');
+});
+
+app.post('/list/create', function(req, res, next) {
+	res.redirect('/list');
 });
 
 // error routes
