@@ -1,0 +1,50 @@
+<div class="container">
+    <h1 class="mb-3">Register</h1>
+    <form action="user/register" method="post">
+
+        {{!-- username --}}
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" class="form-control">
+        </div>
+
+        {{!-- first name (optional) --}}
+        <div class="form-group">
+                <label for="firstName">First name</label>
+                <input type="text" id="firstName" name="firstName" placeholder="optional" class="form-control">
+        </div>
+
+        {{!-- last name (optional) --}}
+        <div class="form-group">
+                <label for="lastName">Last name</label>
+                <input type="text" id="lastName" name="lastName" placeholder="optional" class="form-control">
+        </div>
+
+        {{!-- email --}}
+        <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" id="email" name="email" class="form-control">
+        </div>
+
+        {{!-- password --}}
+        <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" class="form-control">
+                <small id="passwordHelpInline" class="form-text text-muted">
+                    Must be 8-20 characters long.
+                </small>
+        </div>
+
+        {{!-- confirm password --}}
+        <div class="form-group">
+                <label for="password">Confirm Password</label>
+                <input type="password" id="password" name="password" class="form-control">
+                <small id="passwordHelpInline" class="form-text text-muted">
+                    Passwords must match.
+                </small>
+        </div>
+
+        {{!-- submit --}}
+        <button class="btn btn-secondary">Register</button>
+    </form>
+</div>

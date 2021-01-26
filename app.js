@@ -48,6 +48,29 @@ app.get('/publisher', function (req, res, next) {
 	res.render('publisher', { browse: true, style: 'results.css' });
 });
 
+app.get('/user', function (req, res, next) {
+	res.render('user', { user: true, style: 'user.css' });
+});
+
+app.get('/user/login', function (req, res, next) {
+	res.render('login', { login: true, style: 'login.css' });
+});
+
+app.get('/user/register', function (req, res, next) {
+	res.render('register', { register: true, style: 'login.css' });
+});
+
+app.get('/user/admin', function (req, res, next) {
+	res.render('admin', { admin: true, style: 'admin.css' });
+});
+
+app.get('/list', function (req, res, next) {
+	res.render('list', { style: 'list.css' });
+});
+
+app.get('/list/create', function (req, res, next) {
+	res.render('create', { style: 'create.css' });
+});
 
 // error routes
 app.use((req, res) => {

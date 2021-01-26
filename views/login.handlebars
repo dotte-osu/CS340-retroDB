@@ -1,0 +1,23 @@
+<div class="container">
+    <h1 class="mb-3">Login</h1>
+    <form action="user/login" method="post">
+
+        {{!-- username --}}
+        <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" class="form-control">
+        </div>
+
+        {{!-- password --}}
+        <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" class="form-control">
+                <small id="passwordHelpInline" class="form-text text-muted">
+                    Must be 8-20 characters long.
+                </small>
+        </div>
+
+        {{!-- submit --}}
+        <button class="btn btn-secondary">Log in</button>
+    </form>
+</div>
