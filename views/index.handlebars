@@ -1,1 +1,36 @@
-<h1>Home page</h1>
+<div id="intro" class="container">
+    <h1>Welcome to RetroDB!</h1>
+    <p>Here I will put some introduction</p>
+</div>
+
+<div id="search" class="container">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Browse Games</h5>
+        </div>
+        <div class="card-body">
+            <h6>Search by</h6>
+            <form action="/results" method="get">
+                <fieldset>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="searchRadio" id="games" value="games" checked >
+                        <label class="form-check-label" for="inlineRadio1">Games</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="searchRadio" id="publishers" value="publishers">
+                        <label class="form-check-label" for="inlineRadio2">Publishers</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="searchRadio" id="consoles" value="consoles">
+                        <label class="form-check-label" for="inlineRadio3">Consoles</label>
+                    </div>
+                    <div>
+                        <input type="text" style="width: 400px;">
+                        <button type="submit" class="btn btn-secondary">Search Games</button>
+                    </div>
+                    
+                </fieldset>       
+            </form>
+        </div>
+    </div> 
+</div>

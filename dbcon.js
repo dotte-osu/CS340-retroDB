@@ -3,10 +3,10 @@ var pool = mysql.createPool({
   connectionLimit : 10,
 
   //TODO: fill out db info
-  host            : '',
-  user            : '',
-  password        : '',
-  database        : ''
+  host: '',
+  user: '',
+  password: '',
+  database: ''
 });
 
 module.exports.pool = pool;

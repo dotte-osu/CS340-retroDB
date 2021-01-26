@@ -21,12 +21,33 @@ app.engine(
 );
 
 app.set('view engine', 'handlebars');
-const port = 54321;		// can change to a different port
+const port = 54322;		// can change to a different port
 
 // routes
 app.get('/', (req, res) => {
-	res.render('index');
+	res.redirect('/home');
 });
+
+app.get('/home', function (req, res, next) {
+	res.render('index', { home: true, style: 'home.css' });
+});
+
+app.get('/results', function (req, res, next) {
+	res.render('results', { browse: true, style: 'results.css'});
+});
+
+app.get('/game', function (req, res, next) {
+	res.render('game', { browse: true, style: 'results.css' });
+});
+
+app.get('/console', function (req, res, next) {
+	res.render('console', { browse: true, style: 'results.css' });
+});
+
+app.get('/publisher', function (req, res, next) {
+	res.render('publisher', { browse: true, style: 'results.css' });
+});
+
 
 // error routes
 app.use((req, res) => {
