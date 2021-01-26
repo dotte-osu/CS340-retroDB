@@ -1,0 +1,64 @@
+body {
+  font-family: 'Nunito Sans', sans-serif;
+  margin: 0 auto !important; 
+  float: none !important; 
+  background-color: #f1f6f8;
+}
+
+.bg-nav {
+  background-color: #085175;
+}
+
+.navbar-brand.brand{
+  color: white;
+  font-size: 30px;
+  font-weight: 1000;
+  margin-left: 20px;
+}
+.navbar.navbar-expand-lg.navbar-light.bg-nav li a {
+    color: white;
+}
+
+.dropdown-menu{
+  background-color: #085175;
+}
+
+#content{
+  position:relative;
+  max-width: 2000px;
+  height:auto;
+  padding: 2%;
+  margin: 2% auto;
+}
+
+.active{
+  font-weight: bold;
+}
+
+#content{
+  background-color:white;
+  width: 90%;
+  height: 100vh;
+  margin-top: 0;
+}
+
+
+/*footer*/
+#footer{
+
+  bottom: 0;
+  width: 100%;
+  background-color:#085175;
+  color:white;
+  
+}
+
+#footerlink{
+  color:white;
+}
+
+
+/*
+@media only screen and (max-width: 600px){
+}
+*/

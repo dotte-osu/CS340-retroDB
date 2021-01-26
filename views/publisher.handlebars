@@ -1,0 +1,43 @@
+<h1>Publisher Page - Working in progress</h1>
+
+<div id="gameTitle" class="container">
+    <div>
+        <h3>Publisher Name: </h3>
+        <h3>Nintendo</h3>
+    </div>
+</div>
+
+<div id="gameDetail" class="container">
+    <div class="dataTable">
+        <table style="border: 1px solid black;">
+            <tr>
+                <td style="border: 1px solid black;">Publisher</td>
+                <td style="border: 1px solid black;">Nintendo</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid black;">Year Founded</td>
+                <td style="border: 1px solid black;">1910</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid black;">CEO</td>
+                <td style="border: 1px solid black;">Someone</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="container">
+    <h2>Return games for Nintendo</h2>
+    <table style="border: 1px solid black;">
+        <tr>
+            <td style="border: 1px solid black;">names</td>
+            <td style="border: 1px solid black;">values</td>
+        </tr>
+        {{#each getdata}}
+        <tr>
+            <td style="border: 1px solid black;">{{this.name}}</td>
+            <td style="border: 1px solid black;">{{this.value}}</td>
+        </tr>
+        {{/each}}
+    </table>
+</div>

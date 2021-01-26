@@ -1,0 +1,8 @@
+.container{
+    margin-bottom: 3%;
+}
+
+.radios{
+    display: flex;
+    align-items: center;
+}

@@ -1,0 +1,147 @@
+<div id="search" class="container">
+    <h6>Search by</h6>
+    <form action="/results" method="get">
+        <fieldset>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="searchRadio" id="games" value="games" checked>
+                <label class="form-check-label" for="inlineRadio1">Games</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="searchRadio" id="publishers" value="publishers">
+                <label class="form-check-label" for="inlineRadio2">Publishers</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="searchRadio" id="consoles" value="consoles">
+                <label class="form-check-label" for="inlineRadio3">Consoles</label>
+            </div>
+            <div>
+                <input type="text" style="width: 400px;">
+                <button type="submit" class="btn btn-secondary">Search Games</button>
+            </div>
+    
+        </fieldset>
+    </form>
+</div>
+
+<div class="container">
+    <h6>Filter by:</h6>
+    <form>
+        <table id="filters">
+            <thead>
+                <tr>
+                    <td>Game Release Year:</td>
+                    <td>Console:</td>
+                    <td>Publisher:</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><select name="filter">
+                            <option value="">-</option>
+                            <option value="">2000</option>
+                            <option value="">2001</option>
+                            <option value="">2002</option>
+                            <option value="">2003</option>
+                        </select></td>
+                    <td><select name="filter">
+                        <option value="">-</option>
+                            <option value="">Nintendo Entertainment System</option>
+                            <option value="">Nintendo 64</option>
+                            <option value="">Nintendo GameCube</option>
+                            <option value="">Wii</option>
+                        </select></td>
+                    <td><select name="filter">
+                        <option value="">-</option>
+                            <option value="">Nintendo</option>
+                            <option value="">Sega</option>
+                            <option value="">Microsoft</option>
+                        </select></td>
+                </tr>
+                <tr>
+                    <td>Console Release Year:</td>
+                    <td>Console Type:</td>
+                    <td>Publisher HQ Country</td>
+                </tr>
+                <tr>
+                    <td><select name="filter">
+                        <option value="">-</option>
+                            <option value="">2000</option>
+                            <option value="">2001</option>
+                            <option value="">2002</option>
+                            <option value="">2003</option>
+                        </select></td>
+                    <td><select name="filter">
+                        <option value="">-</option>
+                            <option value="">Home Console</option>
+                            <option value="">Handheld</option>
+                            <option value="">Hybrid</option>
+                        </select></td>
+                    <td><select name="filter">
+                        <option value="">-</option>
+                            <option value="volvo">Japan</option>
+                            <option value="saab">United States</option>
+                        </select></td>
+                </tr>
+                <tr>
+                    <td>Publisher Year Founded</td>
+                    <td>Console Developer:</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><select name="filter">
+                        <option value="">-</option>
+                            <option value="">2000</option>
+                            <option value="">2001</option>
+                            <option value="">2002</option>
+                            <option value="">2003</option>
+                        </select></td>
+                    <td><select name="filter">
+                        <option value="">-</option>
+                            <option value="">Nintendo</option>
+                            <option value="">Sega</option>
+                            <option value="">Microsoft</option>
+                        </select></td>
+                    <td><button id="submitFilter" type="submit" class="btn btn-secondary">Filter Games</button></td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </form>
+</div>
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Game</th>
+                <th scope="col">Game Release Year</th>
+                <th scope="col">Console</th>
+                <th scope="col">Console Type</th>
+                <th scope="col">Console Developer</th>
+                <th scope="col">Publisher</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td><a href="/game">Mario Cart 64</a></td>
+                <td>2000</td>
+                <td>Nintendo</td>
+                <td>Home Console</td>
+                <td>Nintendo</td>
+                <td>Nintendo</td>
+            </tr>
+            {{#each data}}
+            <tr>
+                <th scope="row">{{this.something}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.name}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

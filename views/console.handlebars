@@ -1,0 +1,47 @@
+<h1>Comsole Page - Working in progress</h1>
+
+<div id="gameTitle" class="container">
+    <div>
+        <h3>Console Name: </h3>
+        <h3>Nintendo 64</h3>
+    </div>
+</div>
+
+<div id="gameDetail" class="container">
+    <div class="dataTable">
+        <table style="border: 1px solid black;">
+            <tr>
+                <td style="border: 1px solid black;">Console</td>
+                <td style="border: 1px solid black;">Nintendo 64</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid black;">Release Year</td>
+                <td style="border: 1px solid black;">2000</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid black;">Developer</td>
+                <td style="border: 1px solid black;">Someone</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid black;">Type</td>
+                <td style="border: 1px solid black;">Home Console</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="container">
+    <h2>Return games for Nintendo 64</h2>
+    <table style="border: 1px solid black;">
+        <tr>
+            <td style="border: 1px solid black;">names</td>
+            <td style="border: 1px solid black;">values</td>
+        </tr>
+        {{#each getdata}}
+        <tr>
+            <td style="border: 1px solid black;">{{this.name}}</td>
+            <td style="border: 1px solid black;">{{this.value}}</td>
+        </tr>
+        {{/each}}
+    </table>
+</div>

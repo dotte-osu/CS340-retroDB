@@ -1,0 +1,52 @@
+.container{
+    margin-bottom: 3%;
+}
+
+
+h3,h4{ 
+    display: inline; 
+}
+
+.flex-container{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.dataTable{
+    width: 100%;
+    margin-right: 5%;
+}
+
+#filters{
+    width: 100%;
+}
+
+#filters select{
+    width: 300px;
+}
+
+#submitFilter{
+    margin-top:5px;
+    margin-left:185px;
+}
+
+.gameImage{
+    width: 400px;
+}
+
+.flex-game{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.card{
+    margin-right: 20px;
+}
+
+.gameImage {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+}
