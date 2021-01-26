@@ -1,0 +1,35 @@
+<div class="container">
+    <h1>Favorites</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Game</th>
+                <th scope="col">Release Year</th>
+                <th scope="col">Console</th>
+                <th scope="col">Publisher</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{!-- example --}}
+            <tr>
+                <th scope="row">1</th>
+                <td><a href="/game">Mario Kart 64</a></td>
+                <td>2000</td>
+                <td><a href="/console">Nintendo 64</a></td>
+                <td><a href="/publisher">Nintendo</a></td> 
+            </tr>
+
+            {{!-- actual data TBD --}}
+            {{#each data}}
+            <tr>
+                <th scope="row">{{this.gameID}}</th>
+                <td>{{this.gameName}}</td>
+                <td>{{this.gameReleaseYear}}</td>
+                <td>{{this.console}}</td>
+                <td>{{this.publisher}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
