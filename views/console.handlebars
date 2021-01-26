@@ -1,47 +1,63 @@
-<h1>Comsole Page - Working in progress</h1>
-
-<div id="gameTitle" class="container">
+<div class="container">
     <div>
         <h3>Console Name: </h3>
         <h3>Nintendo 64</h3>
     </div>
-</div>
-
-<div id="gameDetail" class="container">
-    <div class="dataTable">
-        <table style="border: 1px solid black;">
-            <tr>
-                <td style="border: 1px solid black;">Console</td>
-                <td style="border: 1px solid black;">Nintendo 64</td>
-            </tr>
-            <tr>
-                <td style="border: 1px solid black;">Release Year</td>
-                <td style="border: 1px solid black;">2000</td>
-            </tr>
-            <tr>
-                <td style="border: 1px solid black;">Developer</td>
-                <td style="border: 1px solid black;">Someone</td>
-            </tr>
-            <tr>
-                <td style="border: 1px solid black;">Type</td>
-                <td style="border: 1px solid black;">Home Console</td>
-            </tr>
-        </table>
+    <div>
+        <h4>Release Year: </h4>
+        <h4>1234</h4>
     </div>
 </div>
 
-<div class="container">
-    <h2>Return games for Nintendo 64</h2>
-    <table style="border: 1px solid black;">
-        <tr>
-            <td style="border: 1px solid black;">names</td>
-            <td style="border: 1px solid black;">values</td>
-        </tr>
-        {{#each getdata}}
-        <tr>
-            <td style="border: 1px solid black;">{{this.name}}</td>
-            <td style="border: 1px solid black;">{{this.value}}</td>
-        </tr>
-        {{/each}}
-    </table>
+
+<div class="container flex-game">
+    <div class="card" style="width: 30rem;">
+        <div class="card-header">
+            Console
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Console: Nintendo</li>
+            <li class="list-group-item">Release Year: 1234</li>
+            <li class="list-group-item">Developer: Nintendo</li>
+        </ul>
+    </div>
+    <div class="container">
+        <!--sample image from wikipedia-->
+        <img class="gameImage" src="images/Nintendo_64.jpg" alt="game image">
+    </div>
+
+</div>
+
+<div id="search" class="container">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Browse Games</h5>
+        </div>
+        <div class="card-body">
+            <h6>Search by</h6>
+            <form action="/results" method="get">
+                <fieldset>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="searchRadio" id="games" value="games"
+                            checked>
+                        <label class="form-check-label" for="inlineRadio1">Games</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="searchRadio" id="publishers"
+                            value="publishers">
+                        <label class="form-check-label" for="inlineRadio2">Publishers</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="searchRadio" id="consoles" value="consoles">
+                        <label class="form-check-label" for="inlineRadio3">Consoles</label>
+                    </div>
+                    <div>
+                        <input type="text" style="width: 400px;">
+                        <button type="submit" class="btn btn-secondary">Search Games</button>
+                    </div>
+
+                </fieldset>
+            </form>
+        </div>
+    </div>
 </div>
