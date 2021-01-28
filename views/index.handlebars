@@ -58,3 +58,80 @@
     </div> 
 </div>
 
+<div class="container">
+    <h5 class="card-title">Hot Games</h5>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Game</th>
+                <th scope="col">Game Release Year</th>
+                <th scope="col">Console</th>
+                <th scope="col">Console Type</th>
+                <th scope="col">Console Developer</th>
+                <th scope="col">Publisher</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td><a href="/game">Mario Kart 64</a></td>
+                <td>2000</td>
+                <td><a href="/console">Nintendo</a></td>
+                <td>Home Console</td>
+                <td>Nintendo</td>
+                <td><a href="/publisher">Nintendo</a></td>
+            </tr>
+            {{#each data}}
+            <tr>
+                <th scope="row">{{this.something}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.name}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+<div class="container">
+    <h5 class="card-title">Recently Added</h5>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Game</th>
+                <th scope="col">Game Release Year</th>
+                <th scope="col">Console</th>
+                <th scope="col">Console Type</th>
+                <th scope="col">Console Developer</th>
+                <th scope="col">Publisher</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td><a href="/game">Mario Kart 64</a></td>
+                <td>2000</td>
+                <td><a href="/console">Nintendo</a></td>
+                <td>Home Console</td>
+                <td>Nintendo</td>
+                <td><a href="/publisher">Nintendo</a></td>
+            </tr>
+            {{#each data}}
+            <tr>
+                <th scope="row">{{this.something}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.name}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
