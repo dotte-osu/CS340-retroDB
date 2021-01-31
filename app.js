@@ -71,7 +71,7 @@ app.get('/list', function(req, res, next) {
 app.get('/list/create', function(req, res, next) {
 	// using JSON to simulate getting info from MySQL
 	games = [
-		{ id: 1, name: 'Mario Kart 64', console: 'Nintendo 64' }, // other info is estraneous rn
+		{ id: 1, name: 'Mario Kart 64', console: 'Nintendo 64' }, // any other info is extraneous rn
 		{ id: 2, name: 'Super Smash Bros. Melee', console: 'GameCube' },
 		{ id: 3, name: 'Bubsy 3D', console: 'PlayStation 2' },
 		{ id: 4, name: 'Tony Hawk\'s Pro Skater 4', console: 'GameCube'},
@@ -86,11 +86,13 @@ app.get('/list/create', function(req, res, next) {
 		const consoleB = b.console.toUpperCase();
 
 		let sort = 0;
+		// game sort
 		if (gameA > gameB) {
 			sort = 1;
 		} else if (gameA < gameB) {
 			sort = -1;
 		} else if ((gameA == gameB)) {
+			// console sort
 			if (consoleA > consoleB) {
 				sort = 1;
 			} else if (consoleA < consoleB) {
