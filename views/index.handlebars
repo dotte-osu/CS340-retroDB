@@ -36,19 +36,19 @@
             <form action="/results" method="get">
                 <fieldset>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="searchRadio" id="games" value="games" checked >
+                        <input class="form-check-input" type="radio" name="searchType" id="games" value="games" checked >
                         <label class="form-check-label" for="games">Games</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="searchRadio" id="publishers" value="publishers">
+                        <input class="form-check-input" type="radio" name="searchType" id="publishers" value="publishers">
                         <label class="form-check-label" for="publishers">Publishers</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="searchRadio" id="consoles" value="consoles">
+                        <input class="form-check-input" type="radio" name="searchType" id="consoles" value="consoles">
                         <label class="form-check-label" for="consoles">Consoles</label>
                     </div>
                     <div>
-                        <input type="text" style="width: 400px;">
+                        <input type="text" name="keyword" style="width: 400px;">
                         <button type="submit" class="btn btn-secondary">Search Games</button>
                     </div>
                     
@@ -75,12 +75,12 @@
         <tbody>
             <tr>
                 <th scope="row">1</th>
-                <td><a href="/game">Mario Kart 64</a></td>
+                <td><a href="/game?name=Super Mario">Super Mario</a></td>
                 <td>2000</td>
-                <td><a href="/console">Nintendo</a></td>
+                <td><a href="/console?name=Super Nintendo Entertainment System">Super Nintendo Entertainment System</a></td>
                 <td>Home Console</td>
                 <td>Nintendo</td>
-                <td><a href="/publisher">Nintendo</a></td>
+                <td><a href="/publisher?name=Nintendo">Nintendo</a></td>
             </tr>
             {{#each data}}
             <tr>
@@ -114,12 +114,12 @@
         <tbody>
             <tr>
                 <th scope="row">1</th>
-                <td><a href="/game">Mario Kart 64</a></td>
+                <td><a href="/game?name=Super Mario">Super Mario</a></td>
                 <td>2000</td>
-                <td><a href="/console">Nintendo</a></td>
+                <td><a href="/console?name=Super Nintendo Entertainment System">Super Nintendo Entertainment System</a></td>
                 <td>Home Console</td>
                 <td>Nintendo</td>
-                <td><a href="/publisher">Nintendo</a></td>
+                <td><a href="/publisher?name=Nintendo">Nintendo</a></td>
             </tr>
             {{#each data}}
             <tr>
