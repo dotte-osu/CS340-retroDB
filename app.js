@@ -69,18 +69,61 @@ app.get('/list', function(req, res, next) {
 });
 
 app.get('/list/create', function(req, res, next) {
-	res.render('create', { style: 'create.css' });
+
+	// using JSON to simulate getting info from MySQL
+	games = [
+		{id: 1, name: 'Mario Kart 64', console: 'Nintendo 64'},	// other info is estraneous rn
+		{id: 2, name: 'Super Smash Bros. Melee', console: 'Nintendo Gamecube'},
+		{id: 3, name: 'Bubsy 3D', console: 'Sony PlayStation'}
+	]
+	context = {style: 'create.css', games: games}
+
+	res.render('create', context);
 });
 
 app.post('/user/login', function(req, res, next) {
+	const { username, password } = req.body;
+
+	// debug
+	let userInfo = {
+		username: username,
+		password: password
+	}
+	console.log(JSON.stringify(userInfo));
+	// end debug
+
 	res.redirect('/user');
 });
 
 app.post('/user/register', function(req, res, next) {
+	const { username, firstName, lastName, email, password, confirmPassword } = req.body;
+
+	// debug
+	let userInfo = {
+		username: username,
+		firstName: firstName,
+		lastName: lastName,
+		email: email,
+		password: password,
+		confirmPassword: confirmPassword
+	};
+	console.log(JSON.stringify(userInfo));
+	// end debug
+
 	res.redirect('/user');
 });
 
 app.post('/list/create', function(req, res, next) {
+	const { name, game } = req.body
+
+	// debug
+	let listInfo = {
+		'Game Name': name,
+		'Games': game
+	}
+	console.log(JSON.stringify(listInfo))
+	// end debug
+
 	res.redirect('/list');
 });
 
