@@ -69,15 +69,38 @@ app.get('/list', function(req, res, next) {
 });
 
 app.get('/list/create', function(req, res, next) {
-
 	// using JSON to simulate getting info from MySQL
 	games = [
-		{id: 1, name: 'Mario Kart 64', console: 'Nintendo 64'},	// other info is estraneous rn
-		{id: 2, name: 'Super Smash Bros. Melee', console: 'Nintendo Gamecube'},
-		{id: 3, name: 'Bubsy 3D', console: 'Sony PlayStation'}
-	]
-	context = {style: 'create.css', games: games}
+		{ id: 1, name: 'Mario Kart 64', console: 'Nintendo 64' }, // other info is estraneous rn
+		{ id: 2, name: 'Super Smash Bros. Melee', console: 'GameCube' },
+		{ id: 3, name: 'Bubsy 3D', console: 'PlayStation 2' },
+		{ id: 4, name: 'Tony Hawk\'s Pro Skater 4', console: 'GameCube'},
+		{ id: 5, name: 'Tony Hawk\'s Pro Skater 4', console: 'PlayStation 2'}
+	];
 
+	// sort alphabetically by game name, then by console name
+	games.sort(function(a, b) {
+		const gameA = a.name.toUpperCase();
+		const gameB = b.name.toUpperCase();
+		const consoleA = a.console.toUpperCase();
+		const consoleB = b.console.toUpperCase();
+
+		let sort = 0;
+		if (gameA > gameB) {
+			sort = 1;
+		} else if (gameA < gameB) {
+			sort = -1;
+		} else if ((gameA == gameB)) {
+			if (consoleA > consoleB) {
+				sort = 1;
+			} else if (consoleA < consoleB) {
+				sort = -1;
+			}
+		}
+		return sort;
+	});
+
+	context = { style: 'create.css', games: games };
 	res.render('create', context);
 });
 
@@ -88,7 +111,7 @@ app.post('/user/login', function(req, res, next) {
 	let userInfo = {
 		username: username,
 		password: password
-	}
+	};
 	console.log(JSON.stringify(userInfo));
 	// end debug
 
@@ -114,14 +137,14 @@ app.post('/user/register', function(req, res, next) {
 });
 
 app.post('/list/create', function(req, res, next) {
-	const { name, game } = req.body
+	const { name, game } = req.body;
 
 	// debug
 	let listInfo = {
 		'Game Name': name,
-		'Games': game
-	}
-	console.log(JSON.stringify(listInfo))
+		Games: game
+	};
+	console.log(JSON.stringify(listInfo));
 	// end debug
 
 	res.redirect('/list');
