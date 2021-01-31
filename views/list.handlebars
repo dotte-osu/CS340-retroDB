@@ -1,5 +1,5 @@
 <div class="container">
-    <h1>Favorites</h1>
+    <h1>{{name}}</h1>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -12,18 +12,18 @@
         </thead>
         <tbody>
             {{!-- example --}}
-            <tr>
+            {{!-- <tr>
                 <th scope="row">1</th>
                 <td><a href="/game">Mario Kart 64</a></td>
                 <td>2000</td>
                 <td><a href="/console">Nintendo 64</a></td>
                 <td><a href="/publisher">Nintendo</a></td> 
-            </tr>
+            </tr> --}}
 
             {{!-- actual data TBD --}}
-            {{#each data}}
+            {{#each games}}
             <tr>
-                <th scope="row">{{this.gameID}}</th>
+                <th scope="row">{{this.order}}</th>
                 <td>{{this.gameName}}</td>
                 <td>{{this.gameReleaseYear}}</td>
                 <td>{{this.console}}</td>

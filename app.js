@@ -65,17 +65,39 @@ app.get('/user/admin', function(req, res, next) {
 });
 
 app.get('/list', function(req, res, next) {
-	res.render('list', { style: 'list.css' });
+	// takes list ID as a query, and displays list of games
+
+	const { id } = req.query;
+
+	// pretend that an SQL query was made, and returned a list of games
+	const name = 'My Favorites'
+	const games = [
+		{gameName: 'Mario Kart 64', gameReleaseYear: '1996', console: 'Nintendo 64', publisher: 'Nintendo' },
+		{gameName: 'Super Smash Bros. Melee', gameReleaseYear: '2001', console: 'GameCube', publisher: 'Nintendo' },
+		{gameName: "Tony Hawk's Pro Skater 4", gameReleaseYear: '2002', console: 'GameCube', publisher: 'Activision' },
+	];
+
+	// add order of list
+	for (let i=0; i < games.length; i++) {
+		games[i].order = i + 1
+	}
+
+	context = {}
+	context.name = name
+	context.games = games
+	context.style = 'list.css'
+
+	res.render('list', context);
 });
 
 app.get('/list/create', function(req, res, next) {
 	// using JSON to simulate getting info from MySQL
-	games = [
+	const games = [
 		{ id: 1, name: 'Mario Kart 64', console: 'Nintendo 64' }, // any other info is extraneous rn
 		{ id: 2, name: 'Super Smash Bros. Melee', console: 'GameCube' },
 		{ id: 3, name: 'Bubsy 3D', console: 'PlayStation 2' },
-		{ id: 4, name: 'Tony Hawk\'s Pro Skater 4', console: 'GameCube'},
-		{ id: 5, name: 'Tony Hawk\'s Pro Skater 4', console: 'PlayStation 2'}
+		{ id: 4, name: "Tony Hawk's Pro Skater 4", console: 'GameCube' },
+		{ id: 5, name: "Tony Hawk's Pro Skater 4", console: 'PlayStation 2' }
 	];
 
 	// sort alphabetically by game name, then by console name
@@ -91,7 +113,7 @@ app.get('/list/create', function(req, res, next) {
 			sort = 1;
 		} else if (gameA < gameB) {
 			sort = -1;
-		} else if ((gameA == gameB)) {
+		} else if (gameA == gameB) {
 			// console sort
 			if (consoleA > consoleB) {
 				sort = 1;
