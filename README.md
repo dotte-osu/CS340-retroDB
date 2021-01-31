@@ -10,6 +10,9 @@ node app.js
 
 If npm install doesn't work, download dependencies listed in `package.json` manually
 
+## Dump Dummy data to SQL
+Impot `project_dump.sql` file to your local sql database. 
+
 ### Merging a PR into master (main)
 
 when merging a pull request from `dev` into `main`, be sure to use a ff-only commit so that we keep `dev` and `main` in sync (no extra merge commit):
