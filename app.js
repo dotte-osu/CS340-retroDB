@@ -18,7 +18,7 @@ const getList = "select gameName, gameReleaseYear, consoleName, consoleType, pub
 	+ "join Publishers p on g.publisherID = p.publisherID ";
 const getGame = "select * "
 	+ "from Games g "
-	+ "join GamesConsoles gc on g.gameID = gc.consoleID "
+	+ "join GamesConsoles gc on g.gameID = gc.gameId "
 	+ "join Publishers p on g.publisherID = p.publisherID "
 	+ "join Consoles c on c.consoleID = gc.consoleID "
 	+ "where gameName = ?";
