@@ -11,7 +11,7 @@ CREATE TABLE `Games` (
 
 -- intert dummy data
 INSERT INTO `Games`(`gameName`, `gameReleaseYear`, `publisherID`) 
-VALUES ('Super Mario',1111,1),('Dr. Mario 64',2222,1),
+VALUES ('Super Mario',1985,1),('Dr. Mario 64',2001,1),
 ('Aerobiz Supersonic',1994,2),('Sonic the Hedgehog',1991,2)
 ,('Sonic Spinball',1993,2),('E.T. the Extra-Terrestrial',1982,3);
 
@@ -29,9 +29,9 @@ CREATE TABLE `Publishers` (
 
 -- intert dummy data
 INSERT INTO `Publishers`(`publisherName`, `yearFounded`, `hqCountry`, `ceo`) 
-VALUES ('Nintendo',1111,'Japan','Someone 1'),
-('Sega',1960,'Japan','Someone 2'),
-('Atari',1972,'United States','Someone 3');
+VALUES ('Nintendo',1889,'Japan','Shuntaro Furukawa'),
+('Sega',1960,'Japan','Haruki Satomi'),
+('Atari',1972,'United States','Frederic Chesnais');
 
 
 -- Create Consoles table
