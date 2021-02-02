@@ -6,14 +6,14 @@ module.exports = (function() {
 	function getGamesbyListID(req, res, mysql, context, complete) {
 		const listID = req.query.q;
 		const sqlQuery =
-			'SELECT gameName, gameReleaseYear, c.consoleName AS console, publisher ' +
+			'SELECT gameName, gameReleaseYear, c.consoleName AS console, p.publisherName AS publisher ' +
 			'FROM Games g ' +
 			'INNER JOIN GamesLists gl on gl.gameID = g.gameID ' +
 			'INNER JOIN Lists l on l.listID = gl.listID ' +
-			'WHERE l.listID = ' +
-			mysql.pool.escape(listID + '%');
+			'INNER JOIN Consoles c on g.consoleID = c.consoleID ' +
+			'INNER JOIN Publishers p on g.publisherID = p.publisherID'
+			'WHERE l.listID = ?';
 
-		console.log('list:', listID);
 		mysql.pool.query(sqlQuery, listID, function(error, results, fields) {
 			if (error) {
 				console.log('Failed to fetch Games:', error);
@@ -27,28 +27,26 @@ module.exports = (function() {
 
 	function getListNameByID(req, res, mysql, context, complete) {
 		const listID = req.query.q;
-		const sqlQuery = 'SELECT listName FROM Lists WHERE listID = ' + mysql.pool.escape(listID + '%');
-		console.log('list:', listID);
+		const sqlQuery = 'SELECT listName FROM Lists WHERE listID = ?';
 		mysql.pool.query(sqlQuery, listID, function(error, results, fields) {
 			if (error) {
 				console.log('Failed to fetch Lists:', error);
 				res.end();
 			}
-			context.name = results;
+			context.name = results[0].listName;
 			complete();
 		});
 	}
 
 	function getListDescriptionByID(req, res, mysql, context, complete) {
 		const listID = req.query.q;
-		const sqlQuery = 'SELECT listDescription FROM Lists WHERE listID = ' + mysql.pool.escape(listID + '%');
-		console.log('list:', listID);
+		const sqlQuery = 'SELECT listDescription FROM Lists WHERE listID = ?';
 		mysql.pool.query(sqlQuery, listID, function(error, results, fields) {
 			if (error) {
 				console.log('Failed to fetch Lists:', error);
 				res.end();
 			}
-			context.description = results;
+			context.description = results[0].listDescription;
 			complete();
 		});
 	}

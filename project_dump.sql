@@ -5,15 +5,16 @@ CREATE TABLE `Games` (
  `gameID` int(11) not null AUTO_INCREMENT,
  `gameName` varchar(255) not null,
  `gameReleaseYear` int(11),
+ `consoleID` int(11),
  `publisherID` int(11),
   PRIMARY KEY (`gameID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- intert dummy data
-INSERT INTO `Games`(`gameName`, `gameReleaseYear`, `publisherID`) 
-VALUES ('Super Mario',1985,1),('Dr. Mario 64',2001,1),
-('Aerobiz Supersonic',1994,2),('Sonic the Hedgehog',1991,2)
-,('Sonic Spinball',1993,2),('E.T. the Extra-Terrestrial',1982,3);
+INSERT INTO `Games`(`gameName`, `gameReleaseYear`, `consoleID`, `publisherID`) 
+VALUES ('Super Mario',1985,1,1),('Dr. Mario 64',2001,2,1),
+('Aerobiz Supersonic',1994,3,2),('Sonic the Hedgehog',1991,3,2),
+('Sonic Spinball',1993,3,2),('E.T. the Extra-Terrestrial',1982,4,3);
 
 
 -- Create Publishers table
@@ -51,20 +52,6 @@ VALUES ('Super Nintendo Entertainment System','Nintendo','Home Console'),
 ('Sega Genesis','Sega','Home Console'),
 ('Atari 2600','Atari','Home Console');
 
-
--- Create GamesConsoles table
-DROP TABLE IF EXISTS `GamesConsoles`;
-CREATE TABLE `GamesConsoles` (
- `gameID` int(11) not null AUTO_INCREMENT,
- `consoleID` int(11),
-  CONSTRAINT `game_fk_1` FOREIGN KEY (`gameID`) REFERENCES `Games` (`gameID`),
-  CONSTRAINT `game_fk_2` FOREIGN KEY (`consoleID`) REFERENCES `Consoles` (`consoleID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- intert dummy data
-INSERT INTO `GamesConsoles`(`gameID`, `consoleID`) 
-VALUES (1,1),(2,2),(3,3),(4,3),(5,3),(6,4);
-
 -- Create Lists table
 DROP TABLE IF EXISTS `Lists`;
 CREATE TABLE `Lists` (
@@ -72,7 +59,7 @@ CREATE TABLE `Lists` (
   `listName` varchar(255) NOT NULL,
   `listDescription` varchar(255),
   `lastUpdated` date,
-  `createdBy` int,  -- TODO: will reference Users table once created
+  `createdBy` int(11),  -- TODO: will reference Users table once created
   PRIMARY KEY (`listID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
