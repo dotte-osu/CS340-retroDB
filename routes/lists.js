@@ -11,7 +11,7 @@ module.exports = (function() {
 			'INNER JOIN GamesLists gl on gl.gameID = g.gameID ' +
 			'INNER JOIN Lists l on l.listID = gl.listID ' +
 			'INNER JOIN Consoles c on g.consoleID = c.consoleID ' +
-			'INNER JOIN Publishers p on g.publisherID = p.publisherID'
+			'INNER JOIN Publishers p on g.publisherID = p.publisherID ' +
 			'WHERE l.listID = ?';
 
 		mysql.pool.query(sqlQuery, listID, function(error, results, fields) {
