@@ -72,6 +72,7 @@ CREATE TABLE `Lists` (
   `listName` varchar(255) NOT NULL,
   `listDescription` varchar(255),
   `lastUpdated` date,
+  `createdBy` int,  -- TODO: will reference Users table once created
   PRIMARY KEY (`listID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
