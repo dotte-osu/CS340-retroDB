@@ -7,6 +7,9 @@ const session = require('express-session');
 const bcrypt = require('bcrypt');
 const path = require('path');
 
+// router links
+const listRouter = require('./routes/lists.js')
+
 //sql query
 //const getGameList = "Select * from Games where gameName = ?";
 const getConsole = "Select * from Consoles where consoleName = ?";
@@ -131,31 +134,33 @@ app.get('/user/admin', function(req, res, next) {
 	res.render('admin', { admin: true, style: 'admin.css' });
 });
 
-app.get('/list', function(req, res, next) {
-	// takes list ID as a query, and displays list of games
+// app.get('/list', function(req, res, next) {
+// 	// takes list ID as a query, and displays list of games
 
-	const { id } = req.query;
+// 	const { id } = req.query;
 
-	// pretend that an SQL query was made, and returned a list of games
-	const name = 'My Favorites'
-	const games = [
-		{gameName: 'Mario Kart 64', gameReleaseYear: '1996', console: 'Nintendo 64', publisher: 'Nintendo' },
-		{gameName: 'Super Smash Bros. Melee', gameReleaseYear: '2001', console: 'GameCube', publisher: 'Nintendo' },
-		{gameName: "Tony Hawk's Pro Skater 4", gameReleaseYear: '2002', console: 'GameCube', publisher: 'Activision' },
-	];
+// 	// pretend that an SQL query was made, and returned a list of games
+// 	const name = 'My Favorites'
+// 	const games = [
+// 		{gameName: 'Mario Kart 64', gameReleaseYear: '1996', console: 'Nintendo 64', publisher: 'Nintendo' },
+// 		{gameName: 'Super Smash Bros. Melee', gameReleaseYear: '2001', console: 'GameCube', publisher: 'Nintendo' },
+// 		{gameName: "Tony Hawk's Pro Skater 4", gameReleaseYear: '2002', console: 'GameCube', publisher: 'Activision' },
+// 	];
 
-	// add order of list
-	for (let i=0; i < games.length; i++) {
-		games[i].order = i + 1
-	}
+// 	// add order of list
+// 	for (let i=0; i < games.length; i++) {
+// 		games[i].order = i + 1
+// 	}
 
-	context = {}
-	context.name = name
-	context.games = games
-	context.style = 'list.css'
+// 	context = {}
+// 	context.name = name
+// 	context.games = games
+// 	context.style = 'list.css'
 
-	res.render('list', context);
-});
+// 	res.render('list', context);
+// });
+
+app.use('/list', listRouter);
 
 app.get('/list/create', function(req, res, next) {
 	// using JSON to simulate getting info from MySQL

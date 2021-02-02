@@ -64,3 +64,31 @@ CREATE TABLE `GamesConsoles` (
 -- intert dummy data
 INSERT INTO `GamesConsoles`(`gameID`, `consoleID`) 
 VALUES (1,1),(2,2),(3,3),(4,3),(5,3),(6,4);
+
+-- Create Lists table
+DROP TABLE IF EXISTS `Lists`;
+CREATE TABLE `Lists` (
+  `listID` int(11) NOT NULL AUTO_INCREMENT,
+  `listName` varchar(255) NOT NULL,
+  `listDescription` varchar(255),
+  `lastUpdated` date,
+  PRIMARY KEY (`listID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- insert dummy data
+INSERT INTO `Lists` (`listName`, `listDescription`, `lastUpdated`)
+VALUES ('My Favorites', 'My favorite games', '2020-02-02'),
+('Want to play', 'all of the games that I want to play', '2020-01-29');
+
+-- Create GamesLists table
+DROP TABLE IF EXISTS `GamesLists`;
+CREATE TABLE `GamesLists` (
+  `listID` int(11) NOT NULL,
+  `gameID` int(11) NOT NULL,
+  CONSTRAINT `list_fk` FOREIGN KEY (`listID`) REFERENCES `Lists` (`listID`),
+  CONSTRAINT `game_fk` FOREIGN KEY (`gameID`) REFERENCES `Games` (`gameID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- insert dummy data
+INSERT INTO `GamesLists`(`listID`, `gameID`)
+VALUES (1,1),(1,2),(1,4),(2,3),(2,5),(2,6)
