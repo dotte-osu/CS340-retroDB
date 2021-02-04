@@ -7,25 +7,6 @@ const session = require('express-session');
 const bcrypt = require('bcrypt');
 const path = require('path');
 
-// router links
-const listRouter = require('./routes/lists.js')
-
-//sql query
-//const getGameList = "Select * from Games where gameName = ?";
-const getConsole = "Select * from Consoles where consoleName = ?";
-const getPublisher = "Select * from Publishers where publisherName = ?";
-const getList = "select gameName, gameReleaseYear, consoleName, consoleType, publisherName, consoleDeveloper "
-	+ "from Games g "
-	+ "join GamesConsoles gc on g.gameID = gc.gameID "
-	+ "join Consoles c on c.consoleID = gc.consoleID "
-	+ "join Publishers p on g.publisherID = p.publisherID ";
-const getGame = "select * "
-	+ "from Games g "
-	+ "join GamesConsoles gc on g.gameID = gc.gameId "
-	+ "join Publishers p on g.publisherID = p.publisherID "
-	+ "join Consoles c on c.consoleID = gc.consoleID "
-	+ "where gameName = ?";
-
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
@@ -43,79 +24,19 @@ app.set('view engine', 'handlebars');
 const port = 54323; // can change to a different port
 
 // routes
+const listRouter = require('./routes/lists.js')
+app.use('/list', listRouter);
+app.use('/results', require('./routes/results.js'));
+app.use('/game', require('./routes/game.js'));
+app.use('/publisher', require('./routes/publisher.js'));
+app.use('/console', require('./routes/console.js'));
+
 app.get('/', (req, res) => {
 	res.redirect('/home');
 });
 
 app.get('/home', function(req, res, next) {
 	res.render('index', { home: true, style: 'home.css' });
-});
-
-app.get('/results', function (req, res, next) {
-
-	//dont error out when a user click Browse page directly
-	if (req.query.searchType == undefined) {
-		res.render('results', { browse: true, style: 'results.css' });
-	}
-	else {
-		//get user input
-		var serchBy = "";
-		var type = req.query.searchType;
-		var keyword = req.query.keyword.trim();
-
-		//built query
-		if (type == "games") serchBy = "where gameName like '%key%'".replace("key", keyword);
-		else if (type == "publishers") serchBy = "where publisherName like '%key%'".replace("key", keyword);
-		else serchBy = "where consoleName like '%key%'".replace("key", keyword);
-
-		//handle the case when user input is ""
-		if (keyword != "") query = getList.concat(serchBy);
-		else query = getList;
-
-		mysql.pool.query(query, function (err, rows) {
-			if (err) {
-				next(err);
-				return;
-			}
-
-			res.render('results', { rows, browse: true, style: 'results.css' });
-		})
-	}
-
-	
-});
-
-app.get('/game', function(req, res, next) {
-	var name = req.query.name;
-	mysql.pool.query(getGame, name, function (err, rows) {
-		if (err) {
-			next(err);
-			return;
-		}
-		res.render('game', { rows, browse: true, style: 'results.css' });
-	})
-});
-
-app.get('/console', function (req, res, next) {
-	var name = req.query.name;
-	mysql.pool.query(getConsole, name, function (err, rows) {
-		if (err) {
-			next(err);
-			return;
-		}
-		res.render('console', { rows, browse: true, style: 'results.css' });
-	})
-});
-
-app.get('/publisher', function(req, res, next) {
-	var name = req.query.name;
-	mysql.pool.query(getPublisher, name, function (err, rows) {
-		if (err) {
-			next(err);
-			return;
-		}
-		res.render('publisher', { rows, browse: true, style: 'results.css' });
-	})
 });
 
 app.get('/user', function(req, res, next) {
@@ -134,7 +55,7 @@ app.get('/user/admin', function(req, res, next) {
 	res.render('admin', { admin: true, style: 'admin.css' });
 });
 
-app.use('/list', listRouter);
+
 
 app.get('/list/create', function(req, res, next) {
 	// using JSON to simulate getting info from MySQL
