@@ -54,8 +54,6 @@ app.get('/user/admin', function(req, res, next) {
 	res.render('admin', { admin: true, style: 'admin.css' });
 });
 
-app.use('/list', require('./routes/lists.js'))
-
 app.get('/list/create', function(req, res, next) {
 	// using JSON to simulate getting info from MySQL
 	const games = [
