@@ -51,10 +51,26 @@ module.exports = (function() {
 		});
 	}
 
+	function getSortedGames(req, res, mysql, context, complete) {
+		const sqlQuery =
+			'SELECT g.gameID, g.gameName, c.consoleName ' +
+			'FROM Games g ' +
+			'LEFT JOIN GamesConsoles gc ON gc.gameID = g.gameID ' +
+			'LEFT JOIN Consoles c ON gc.consoleID = c.consoleID ' +
+			'ORDER BY gameName, consoleName';
+		mysql.pool.query(sqlQuery, function(error, results, fields) {
+			if (error) {
+				console.log('Failed to fetch Games:', error);
+				res.end();
+			}
+			context.games = results;
+			complete();
+		});
+	}
+
 	listRouter.get('/', function(req, res) {
 		var callbackCount = 0;
 		var context = {};
-		// var mysql = req.app.get('mysql');
 		getGamesbyListID(req, res, mysql, context, complete);
 		getListNameByID(req, res, mysql, context, complete);
 		getListDescriptionByID(req, res, mysql, context, complete);
@@ -62,16 +78,41 @@ module.exports = (function() {
 			callbackCount++;
 			if (callbackCount >= 3) {
 
-				console.log(context)
-
-			// add order of list
-			for (let i = 0; i < context.games.length; i++) {
-				context.games[i].order = i + 1;
-			}
+				// add order of list
+				for (let i = 0; i < context.games.length; i++) {
+					context.games[i].order = i + 1;
+				}
 
 				res.render('list', context);
 			}
 		}
+	});
+
+	listRouter.get('/create', function(req, res) {
+		var callbackCount = 0;
+		var context = {};
+		getSortedGames(req, res, mysql, context, complete);
+		function complete() {
+			callbackCount++;
+			if (callbackCount >= 1) {
+				res.render('create', context);
+			}
+		}
+	});
+
+	listRouter.post('/create', function(req, res) {
+		console.log(req.body)
+		const { name, game } = req.body;
+
+		// debug
+		let listInfo = {
+			'Game Name': name,
+			Games: game
+		};
+		// console.log(listInfo);
+		// end debug
+
+		res.redirect('/list?q=1');
 	});
 
 	return listRouter;
