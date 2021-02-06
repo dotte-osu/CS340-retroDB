@@ -53,21 +53,21 @@
                                     <tr>
                                         <td><select name="consoleName">
                                                 <option value="">-</option>
-                                                {{#each context.consoles}}
-                                                <option value="{{this.consoleName}}">{{this.consoleName}}</option>
+                                                {{#each context.consoleName}}
+                                                <option value="{{this}}">{{this}}</option>
                                                 {{/each}}
                                             </select></td>
                                         <td><select name="consoleDeveloper">
                                                 <option value="">-</option>
-                                                {{#each context.consoles}}
-                                                <option value="{{this.consoleDeveloper}}">{{this.consoleDeveloper}}
+                                                {{#each context.consoleDeveloper}}
+                                                <option value="{{this}}">{{this}}
                                                 </option>
                                                 {{/each}}
                                             </select></td>
                                         <td><select name="consoleType">
                                                 <option value="">-</option>
-                                                {{#each context.consoles}}
-                                                <option value="{{this.consoleType}}">{{this.consoleType}}</option>
+                                                {{#each context.consoleType}}
+                                                <option value="{{this}}">{{this}}</option>
                                                 {{/each}}
                                             </select></td>
 
@@ -80,41 +80,36 @@
                                     <tr>
                                         <td><select name="publisherName">
                                                 <option value="">-</option>
-                                                {{#each context.publishers}}
-                                                <option value="{{this.publisherName}}">{{this.publisherName}}</option>
+                                                {{#each context.publisherName}}
+                                                <option value="{{this}}">{{this}}</option>
                                                 {{/each}}
                                             </select></td>
                                         <td><select name="yearFounded">
                                                 <option value="">-</option>
-                                                {{#each context.publishers}}
-                                                <option value="{{this.yearFounded}}">{{this.yearFounded}}</option>
+                                                {{#each context.yearFounded}}
+                                                <option value="{{this}}">{{this}}</option>
                                                 {{/each}}
                                             </select></td>
 
                                         <td><select name="hqCountry">
                                                 <option value="">-</option>
-                                                {{#each context.publishers}}
-                                                <option value="{{this.hqCountry}}">{{this.hqCountry}}</option>
+                                                {{#each context.hqCountry}}
+                                                <option value="{{this}}">{{this}}</option>
                                                 {{/each}}
                                             </select></td>
                                     </tr>
                                     <tr>
                                         <td>Game Release Year:</td>
-
-
                                         <td></td>
                                     </tr>
                                     <tr>
                                         <td><select name="gameReleaseYear">
                                                 <option value="">-</option>
-                                                {{#each context.games}}
-                                                <option value="{{this.gameReleaseYear}}">{{this.gameReleaseYear}}
+                                                {{#each context.gameReleaseYear}}
+                                                <option value="{{this}}">{{this}}
                                                 </option>
                                                 {{/each}}
                                             </select></td>
-
-
-
                                     </tr>
                                 </tbody>
                             </table>

@@ -3,12 +3,9 @@ module.exports = (function () {
     const router = express.Router();
     const mysql = require('../dbcon.js');
 
-
-    //*****this query needs to be fixed once we update the database*****
     const getListQuery = "select gameName, gameReleaseYear, consoleName, consoleType, publisherName, consoleDeveloper "
         + "from Games g "
-        + "join GamesConsoles gc on g.gameID = gc.gameID "
-        + "join Consoles c on c.consoleID = gc.consoleID "
+        + "join Consoles c on c.consoleID = g.consoleID "
         + "join Publishers p on g.publisherID = p.publisherID ";
 
     //get data for filters
@@ -61,6 +58,7 @@ module.exports = (function () {
         if (keyword != "") query = getListQuery.concat(serchBy);
         else query = getListQuery;
 
+        query = query + " order by gameName"
         return query;
     }
 
@@ -97,6 +95,7 @@ module.exports = (function () {
                 value = "";
             }
         }
+        query = query + " order by gameName"
         return query;
     }
 
@@ -112,7 +111,6 @@ module.exports = (function () {
             //console.log(postBody);
             query = generateQuery(type, keyword);
             
-
             mysql.pool.query(query, function (err, rows) {
                 if (err) {
                     console.log('Failed to fetch Data:', error);
@@ -121,6 +119,7 @@ module.exports = (function () {
                 context.rows = rows;
             });
         }
+
 
         //for post request
         if (postBody != null) {
@@ -136,9 +135,53 @@ module.exports = (function () {
         complete();
     }
 
+    function sortFilters(context) {
+        var consoleName = [];
+        var consoleDeveloper = [];
+        var consoleType = [];
+        var publisherName = [];
+        var yearFounded = [];
+        var hqCountry = [];
+        var gameReleaseYear = [];
+
+        //console.log(context)
+        for (var i in context.consoles) {
+            if (context.consoles[i].consoleName != undefined && !consoleName.includes(context.consoles[i].consoleName)) consoleName.push(context.consoles[i].consoleName);
+            if (context.consoles[i].consoleDeveloper != undefined && !consoleDeveloper.includes(context.consoles[i].consoleDeveloper)) consoleDeveloper.push(context.consoles[i].consoleDeveloper);
+            if (context.consoles[i].consoleType != undefined && !consoleType.includes(context.consoles[i].consoleType)) consoleType.push(context.consoles[i].consoleType);
+
+        }
+        for (var i in context.publishers) {
+            if (context.publishers[i].publisherName != undefined && !publisherName.includes(context.publishers[i].publisherName)) publisherName.push(context.publishers[i].publisherName);
+            if (context.publishers[i].yearFounded != undefined && !yearFounded.includes(context.publishers[i].yearFounded)) yearFounded.push(context.publishers[i].yearFounded);
+            if (context.publishers[i].hqCountry != undefined && !hqCountry.includes(context.publishers[i].hqCountry)) hqCountry.push(context.publishers[i].hqCountry);
+            if (context.publishers[i].gameReleaseYear != undefined && !gameReleaseYear.includes(context.publishers[i].gameReleaseYear)) gameReleaseYear.push(context.publishers[i].gameReleaseYear);
+        }
+        for (var i in context.games) {
+            if (context.games[i].gameReleaseYear != undefined && !gameReleaseYear.includes(context.games[i].gameReleaseYear)) gameReleaseYear.push(context.games[i].gameReleaseYear);
+        }
+
+        consoleName.sort();
+        consoleDeveloper.sort();
+        consoleType.sort();
+        publisherName.sort();
+        yearFounded.sort();
+        hqCountry.sort();
+        gameReleaseYear.sort();
+
+        context.consoleName = consoleName;
+        context.consoleDeveloper = consoleDeveloper;
+        context.consoleType = consoleType;
+        context.publisherName = publisherName;
+        context.yearFounded = yearFounded;
+        context.hqCountry = hqCountry;
+        context.gameReleaseYear = gameReleaseYear;
+    }
+
     router.get('/', function (req, res, next) {
         var callbackCount = 0;
         var context = {};
+        
         getGemes(req, res, mysql, context, complete);
         getConsoles(req, res, mysql, context, complete);
         getPublishers(req, res, mysql, context, complete);
@@ -146,11 +189,7 @@ module.exports = (function () {
         function complete() {
             callbackCount++;
             if (callbackCount >= 4) {
-                //console.log(context)
-
-                //context contains duplicates now that I will need to fix clean it here.
-
-                ////
+                sortFilters(context)
                 res.render('results', { context, browse: true, style: 'results.css' });
             }
         }
@@ -163,7 +202,6 @@ module.exports = (function () {
         var noKeyWord = true;
         for (var p in req.body) {
             postBody.push({ 'name': p, 'value': req.body[p] });
-            //if (p != "searchType") continue;
             if (p != "searchType" &&  req.body[p] != "") noKeyWord = false;
         }
 
@@ -175,11 +213,7 @@ module.exports = (function () {
             function complete() {
                 callbackCount++;
                 if (callbackCount >= 3) {
-                    //console.log(context)
-
-                    //context contains duplicates now that I will need to fix clean it here.
-
-                    ////
+                    sortFilters(context)
                     var m = "Please fill out the search bar or select at least one filter"
                     res.render('results', { context, browse: true, style: 'results.css', messages: m });
                 }
@@ -193,10 +227,7 @@ module.exports = (function () {
             function complete() {
                 callbackCount++;
                 if (callbackCount >= 4) {
-                    //console.log(context)
-                    //context contains duplicates now that I will need to fix clean it here.
-
-                    ////
+                    sortFilters(context)
                     res.render('results', { context, browse: true, style: 'results.css', messages: ""});
                 }
             }           
