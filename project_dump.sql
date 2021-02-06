@@ -5,7 +5,7 @@ CREATE TABLE `Games` (
  `gameID` int(11) not null AUTO_INCREMENT,
  `gameName` varchar(255) not null,
  `gameReleaseYear` int(11),
- `consoleID` int(11),
+ `consoleID` int(11) not null,
  `publisherID` int(11),
   PRIMARY KEY (`gameID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

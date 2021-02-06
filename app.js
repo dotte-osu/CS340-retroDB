@@ -24,8 +24,7 @@ app.set('view engine', 'handlebars');
 const port = 54323; // can change to a different port
 
 // routes
-const listRouter = require('./routes/lists.js')
-app.use('/list', listRouter);
+app.use('/list', require('./routes/lists.js'));
 app.use('/results', require('./routes/results.js'));
 app.use('/game', require('./routes/game.js'));
 app.use('/publisher', require('./routes/publisher.js'));
@@ -55,7 +54,7 @@ app.get('/user/admin', function(req, res, next) {
 	res.render('admin', { admin: true, style: 'admin.css' });
 });
 
-
+app.use('/list', require('./routes/lists.js'))
 
 app.get('/list/create', function(req, res, next) {
 	// using JSON to simulate getting info from MySQL
