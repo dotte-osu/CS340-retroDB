@@ -5,7 +5,7 @@ CREATE TABLE `Games` (
  `gameID` int(11) not null AUTO_INCREMENT,
  `gameName` varchar(255) not null,
  `gameReleaseYear` int(11),
- `consoleID` int(11),
+ `consoleID` int(11) not null,
  `publisherID` int(11),
   PRIMARY KEY (`gameID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -59,8 +59,9 @@ CREATE TABLE `Lists` (
   `listName` varchar(255) NOT NULL,
   `listDescription` varchar(255),
   `lastUpdated` date,
-  `createdBy` int(11),  -- TODO: will reference Users table once created
-  PRIMARY KEY (`listID`)
+  `createdBy` int(11),
+  PRIMARY KEY (`listID`),
+  CONSTRAINT `createdBy_fk` FOREIGN KEY (`createdBy`) REFERENCES `Users` (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- insert dummy data
@@ -80,3 +81,23 @@ CREATE TABLE `GamesLists` (
 -- insert dummy data
 INSERT INTO `GamesLists`(`listID`, `gameID`)
 VALUES (1,1),(1,2),(1,4),(2,3),(2,5),(2,6)
+
+-- Create Users table
+DROP TABLE IF EXISTS `Users`;
+CREATE TABLE `Users` (
+  `userID` int(11) AUTO_INCREMENT NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `firstName` varchar(255),
+  `lastName` varchar(255),
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  PRIMARY KEY(`userID`),
+  CONSTRAINT UNIQUE (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- insert dummy data
+INSERT INTO `Users`(`username`, `firstName`, `lastName`, `email`, `password`)
+-- NOTE: password will eventually be hashed, then this data will no longer work
+VALUES ('test', 'Foo', 'Bar', 'fake@email.io', 'password1');
+INSERT INTO `Users` (`username`, `email`, `password`)
+VALUES ('noname', 'mystery@aol.com', 'password1');

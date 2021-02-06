@@ -1,6 +1,6 @@
 <div class="container">
     <h1>{{name}}</h1>
-    <h4>{{description}}</h4>
+    <h5>{{description}}</h5>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -12,16 +12,6 @@
             </tr>
         </thead>
         <tbody>
-            {{!-- example --}}
-            {{!-- <tr>
-                <th scope="row">1</th>
-                <td><a href="/game">Mario Kart 64</a></td>
-                <td>2000</td>
-                <td><a href="/console">Nintendo 64</a></td>
-                <td><a href="/publisher">Nintendo</a></td> 
-            </tr> --}}
-
-            {{!-- actual data TBD --}}
             {{#each games}}
             <tr>
                 <th scope="row">{{this.order}}</th>
