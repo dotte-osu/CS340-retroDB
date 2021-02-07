@@ -3,53 +3,113 @@ module.exports = (function() {
 	const userRouter = express.Router();
 	const mysql = require('../dbcon.js');
 
-	userRouter.get('/', function(req, res) {
-        res.render('user', { user: true, style: 'user.css' });
-    })
+	function getUserByUsername(req, res, mysql, context, complete) {
+		const username = req.params.username;
+		const sqlQuery = 'SELECT username, firstName, lastName FROM Users WHERE username = ?';
+		mysql.pool.query(sqlQuery, username, function(error, results, fields) {
+			if (error) {
+				console.log('Failed to fetch User:', error);
+				res.end();
+			}
+            // check if username exists
+            if (!results[0]) {
+                context.failed = true
+            } else {
+                context.username = results[0].username;
+                context.firstName = results[0].firstName;
+                context.lastName = results[0].lastName;
+                // TODO: context.user = true IF :username is logged in username
+            }
+			complete();
+		});
+	}
 
-    userRouter.get('/login', function(req, res) {
-        res.render('login', { login: true, style: 'login.css' });
-    })
+    function getListsByUsername(req, res, mysql, context, complete) {
+        const username = req.params.username;
+        const sqlQuery = 'SELECT l.listID, l.listName ' +
+        'FROM Lists l ' +
+        'INNER JOIN Users u ON l.createdBy = u.userID AND u.userID = ' +
+        '(SELECT userID FROM Users WHERE username = ?)'
+        mysql.pool.query(sqlQuery, username, function(error, results, fields) {
+            if (error) {
+				console.log('Failed to fetch Lists:', error);
+				res.end();
+			}
 
-    userRouter.get('/register', function(req, res) {
-    	res.render('register', { register: true, style: 'login.css' });
-    })
+            // check if username exists
+            if (!results[0]) {
+                context.failed = true
+            } else {
 
-    userRouter.get('/admin', function(req, res) {
-    	res.render('admin', { admin: true, style: 'admin.css' });
-    })
+                context.lists = results
+            }
+            complete();
+        })
+    }
 
-    userRouter.post('/login', function(req, res) {
-        const { username, password } = req.body;
+	userRouter.get('/login', function(req, res) {
+		res.render('login', { login: true, style: 'login.css' });
+	});
 
-        // debug
-        let userInfo = {
-            username: username,
-            password: password
-        };
-        console.log(userInfo);
-        // end debug
+	userRouter.get('/register', function(req, res) {
+		res.render('register', { register: true, style: 'login.css' });
+	});
 
-        res.redirect('/user');
-    })
+	userRouter.get('/admin', function(req, res) {
+		res.render('admin', { admin: true, style: 'admin.css' });
+	});
 
-    userRouter.post('/register', function(req, res) {
-        const { username, firstName, lastName, email, password, confirmPassword } = req.body;
+	userRouter.get('/:username', function(req, res) {
+        var callbackCount = 0;
+		var context = {};
+		getUserByUsername(req, res, mysql, context, complete);
+        getListsByUsername(req, res, mysql, context, complete)
+        function complete() {
+			callbackCount++;
+			if (callbackCount >= 2) {
+                if (context.failed) {
+                    console.log('Username not found:', req.params.username)
+                    res.redirect('/')
+                } else {
+                    console.log(context)
+                    res.render('user', context);
+                }
+			}
+		}
+		
+	});
 
-        // debug
-        let userInfo = {
-            username: username,
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            password: password,
-            confirmPassword: confirmPassword
-        };
-        console.log(userInfo);
-        // end debug
+	userRouter.post('/login', function(req, res) {
+		const { username, password } = req.body;
 
-        res.redirect('/user');
-    })
+		// debug
+		let userInfo = {
+			username: username,
+			password: password
+		};
+		console.log(userInfo);
+		// end debug
+
+		res.redirect('/user');
+	});
+
+	userRouter.post('/register', function(req, res) {
+		const { username, firstName, lastName, email, password, confirmPassword } = req.body;
+
+		// debug
+		let userInfo = {
+			username: username,
+			firstName: firstName,
+			lastName: lastName,
+			email: email,
+			password: password,
+			confirmPassword: confirmPassword
+		};
+		console.log(userInfo);
+		// end debug
+
+		res.redirect('/user');
+	});
 
 	return userRouter;
 })();
