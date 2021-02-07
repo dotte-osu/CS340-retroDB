@@ -65,9 +65,10 @@ CREATE TABLE `Lists` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- insert dummy data
-INSERT INTO `Lists` (`listName`, `listDescription`, `lastUpdated`)
-VALUES ('My Favorites', 'My favorite games', '2020-02-02'),
-('Want to play', 'all of the games that I want to play', '2020-01-29');
+INSERT INTO `Lists` (`listName`, `listDescription`, `lastUpdated`, `createdBy`)
+VALUES ('My Favorites', 'My favorite games', '2020-02-02', 1),
+('Want to play', 'all of the games that I want to play', '2020-01-29', 2),
+('My fav game', 'this is literally the best game ever made', '2020-02-07', 2);
 
 -- Create GamesLists table
 DROP TABLE IF EXISTS `GamesLists`;
@@ -80,7 +81,7 @@ CREATE TABLE `GamesLists` (
 
 -- insert dummy data
 INSERT INTO `GamesLists`(`listID`, `gameID`)
-VALUES (1,1),(1,2),(1,4),(2,3),(2,5),(2,6)
+VALUES (1,1),(1,2),(1,4),(2,3),(2,5),(2,6),(3,6);
 
 -- Create Users table
 DROP TABLE IF EXISTS `Users`;

@@ -6,24 +6,22 @@
                     <div class="d-flex flex-column align-items-center text-center">
                         <img src="/images/favicon.ico" class="rounded-circle" width="150">
                         <div class="mt-3">
-                            <h4>gamerguy1990</h4>
-                            <p class="text-secondary mb-1">John Doe</p>
+                            <h4>{{username}}</h4>
+                            <p class="text-secondary mb-1">{{firstName}} {{lastName}}</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-xl-9 col-lg-8 mb-3">
-            <h4 class="">My Lists</h4>
+            <h4 class="">Lists</h4>
             <div class="list-group mb-3">
-                <a href="/list" class="list-group-item list-group-item-action">Favorites</a>
-                <a href="/list" class="list-group-item list-group-item-action">Want to play</a>
-                <a href="/list" class="list-group-item list-group-item-action">Games I have played</a>
-                <a href="/list" class="list-group-item list-group-item-action">Most overrated games of all time</a>
+                {{#each lists}}
+                <a href="/list?q={{this.listID}}" class="list-group-item list-group-item-action">{{this.listName}}</a>
+                {{/each}}
             </div>
                 <a href="/list/create" class="btn btn-secondary">New List</a>
         </div>
 
     </div>
 </div>
-
