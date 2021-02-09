@@ -28,6 +28,7 @@ app.use('/', require('./routes/home.js'));
 app.use('/results', require('./routes/results.js'));
 app.use('/user', require('./routes/users.js'));
 app.use('/list', require('./routes/lists.js'));
+app.use('/admin', require('./routes/admin.js'))
 app.use('/game', require('./routes/game.js'));
 app.use('/publisher', require('./routes/publisher.js'));
 app.use('/console', require('./routes/console.js'));

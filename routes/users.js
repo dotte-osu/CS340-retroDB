@@ -55,46 +55,6 @@ module.exports = (function() {
 		res.render('register', { register: true, style: 'login.css' });
 	});
 
-	userRouter.get('/admin', function(req, res) {
-		context = {
-			admin: true,
-            message: true
-		};
-		res.render('admin', context);
-	});
-
-    userRouter.get('/admin/games', function(req, res) {
-		context = {
-			admin: true,
-            gamesActive: 'active'
-		};
-		res.render('admin', context);
-	});
-
-    userRouter.get('/admin/consoles', function(req, res) {
-		context = {
-			admin: true,
-            consolesActive: 'active'
-		};
-		res.render('admin', context);
-	});
-
-    userRouter.get('/admin/publishers', function(req, res) {
-		context = {
-			admin: true,
-            publishersActive: 'active'
-		};
-		res.render('admin', context);
-	});
-
-    userRouter.get('/admin/users', function(req, res) {
-		context = {
-			admin: true,
-            usersActive: 'active'
-		};
-		res.render('admin', context);
-	});
-
 	userRouter.get('/:username', function(req, res) {
 		var callbackCount = 0;
 		var context = {};
