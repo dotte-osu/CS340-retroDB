@@ -42,19 +42,7 @@
         </tr>
     </thead>
     <tbody>
-        {{!-- example --}}
-        <tr>
-            <th scope="row">1</th>
-            <td>Mario Kart 64</td>
-            <td>2000</td>
-            <td>Nintendo 64</td>
-            <td>Nintendo</td> 
-            <td><button class="btn btn-danger">Delete</button></td>
-            <td><button class="btn btn-warning">Update</button></td>
-        </tr>
-        
-        {{!-- actual data TBD --}}
-        {{#each data}}
+        {{#each games}}
         <tr>
             <th scope="row">{{this.gameID}}</th>
             <td>{{this.gameName}}</td>
@@ -88,19 +76,7 @@
         </tr>
     </thead>
     <tbody>
-        {{!-- example --}}
-        <tr>
-            <th scope="row">1</th>
-            <td>Nintendo 64</td>
-            <td>1996</td>
-            <td>Nintendo</td>
-            <td>Home Console</td> 
-            <td><button class="btn btn-danger">Delete</button></td>
-            <td><button class="btn btn-warning">Update</button></td>
-        </tr>
-
-        {{!-- actual data TBD --}}
-        {{#each data}}
+        {{#each consoles}}
         <tr>
             <th scope="row">{{this.consoleID}}</th>
             <td>{{this.consoleName}}</td>
@@ -134,19 +110,7 @@
         </tr>
     </thead>
     <tbody>
-        {{!-- example --}}
-        <tr>
-            <th scope="row">1</th>
-            <td>Nintendo</td>
-            <td>1889</td>
-            <td>Japan</td>
-            <td>Shuntaro Furukawa</td> 
-            <td><button class="btn btn-danger">Delete</button></td>
-            <td><button class="btn btn-warning">Update</button></td>
-        </tr>
-
-        {{!-- actual data TBD --}}
-        {{#each data}}
+        {{#each publishers}}
         <tr>
             <th scope="row">{{this.publisherID}}</th>
             <td>{{this.publisherName}}</td>
@@ -181,19 +145,7 @@
         </tr>
     </thead>
     <tbody>
-        {{!-- example --}}
-        <tr>
-            <th scope="row">1</th>
-            <td>gamerguy1990</td>
-            <td>John</td>
-            <td>Doe</td>
-            <td>jdoe@email.com</td> 
-            <td><button class="btn btn-danger">Delete</button></td>
-            <td><button class="btn btn-warning">Update</button></td>
-        </tr>
-
-        {{!-- actual data TBD --}}
-        {{#each data}}
+        {{#each users}}
         <tr>
             <th scope="row">{{this.userID}}</th>
             <td>{{this.username}}</td>
