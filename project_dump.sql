@@ -7,7 +7,9 @@ CREATE TABLE `Games` (
  `gameReleaseYear` int(11),
  `consoleID` int(11) not null,
  `publisherID` int(11),
-  PRIMARY KEY (`gameID`)
+  PRIMARY KEY (`gameID`),
+  CONSTRAINT `console_fk` FOREIGN KEY (`consoleID`) REFERENCES `Consoles` (`consoleID`),
+  CONSTRAINT `publisher_fk` FOREIGN KEY (`publisherID`) REFERENCES `Publishers` (`publisherID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- intert dummy data
