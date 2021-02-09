@@ -1,4 +1,20 @@
-{{!-- <div class="container"> 
+<ul class="nav nav-tabs mb-3">
+  <li class="nav-item">
+    <a class="nav-link {{gamesActive}}" href="/user/admin/games">Games</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {{consolesActive}}" href="/user/admin/consoles">Consoles</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {{publishersActive}}" href="/user/admin/publishers">Publishers</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {{usersActive}}" href="/user/admin/users">Users</a>
+  </li>
+</ul>
+
+{{#if message}}
+<div class="container"> 
     <h1 class="text-center">Admin Page</h1>
     <figure class="text-center">
         <blockquote class="blockquote">
@@ -8,8 +24,10 @@
             Uncle Ben, Spider-Man
         </figcaption>
     </figure>
-</div> --}}
+</div>
+{{/if}}
 
+{{#if gamesActive}}
 <h2>Games</h2>
 <table class="table table-striped">
     <thead>
@@ -53,7 +71,9 @@
         </tr>
     </tbody>
 </table>
+{{/if}}
 
+{{#if consolesActive}}
 <h2>Consoles</h2>
 <table class="table table-striped">
     <thead>
@@ -97,7 +117,9 @@
         </tr>
     </tbody>
 </table>
+{{/if}}
 
+{{#if publishersActive}}
 <h2>Publishers</h2>
 <table class="table table-striped">
     <thead>
@@ -141,7 +163,10 @@
         </tr>
     </tbody>
 </table>
+{{/if}}
 
+
+{{#if usersActive}}
 <h2>Users</h2>
 <table class="table table-striped">
     <thead>
@@ -185,3 +210,4 @@
         </tr>
     </tbody>
 </table>
+{{/if}}
