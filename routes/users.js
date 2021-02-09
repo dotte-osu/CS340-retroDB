@@ -47,6 +47,11 @@ module.exports = (function() {
 		});
 	}
 
+	userRouter.get('/', function(req, res) {
+		// TODO: redirect to user's page, for now redirect to test
+		res.redirect('/user/test')
+	})
+
 	userRouter.get('/login', function(req, res) {
 		res.render('login', { login: true, style: 'login.css' });
 	});
