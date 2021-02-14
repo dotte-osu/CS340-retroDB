@@ -134,12 +134,54 @@
             <td><button class="btn btn-warning">Update</button></td>
         </tr>
         {{/each}}
-
-        <tr>
-            <td colspan="7"><button class="btn btn-secondary">Add console</button></td>
-        </tr>
     </tbody>
 </table>
+
+<h2>New Console:</h2>
+<form action="/admin/consoles" method="post">
+ 
+    <div class="form-row">
+        {{!-- console name --}}
+        <div class="col-md-4">
+            <label for="consoleName">Name</label>
+            <input type="text" class="form-control" name="consoleName" id="consoleName">
+        </div>
+
+        {{!-- console developer --}}
+        <div class="col-md-4">
+            <label for="consoleDeveloper">Developer</label>
+            <input type="text" class="form-control" name="consoleDeveloper" id="consoleDeveloper">
+        </div>
+
+        {{!-- console type --}}
+        <div class="col-md-4">
+            <label for="consoleType">Console Type</label>
+            <div class="mt-2">
+                <div class="form-check form-check-inline">
+                    <input type="radio" name="consoleType" id="home" value="Home Console" class="form-check-input">
+                    <label for="home" class="form-check-label">Home</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="radio" name="consoleType" id="handheld" value="Handheld" class="form-check-input">
+                    <label for="handheld" class="form-check-label">Handheld</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="radio" name="consoleType" id="hybrid" value="Hybrid" class="form-check-input">
+                    <label for="hybrid" class="form-check-label">Hybrid</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{!-- submit --}}
+    <div class="form-row">
+        <div class="col-auto mt-3">
+            <button class="btn btn-secondary">Add console</button>
+        </div>
+    </div>
+
+</form>
+
 {{/if}}
 
 {{#if publishersActive}}
@@ -168,10 +210,6 @@
             <td><button class="btn btn-warning">Update</button></td>
         </tr>
         {{/each}}
-
-        <tr>
-            <td colspan="7"><button class="btn btn-secondary">Add publisher</button></td>
-        </tr>
     </tbody>
 </table>
 {{/if}}

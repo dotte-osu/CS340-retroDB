@@ -153,7 +153,7 @@ module.exports = (function() {
 		res.render('update', context);
 	});
 
-	// Adds a game, redirects to the games page after adding
+	// adds a game, redirects to the games page after adding
 	adminRouter.post('/games', function(req, res) {
 		var context = {
 			admin: true,
@@ -168,6 +168,27 @@ module.exports = (function() {
 				res.end();
 			}
 			res.redirect('/admin/games');
+		});
+	});
+
+	// adds a console, redirects to the consoles page after adding
+	adminRouter.post('/consoles', function(req, res) {
+		var context = {
+			admin: true,
+			consolessActive: 'active'
+		};
+		const sqlQuery =
+			'INSERT INTO Consoles (consoleName, consoleDeveloper, consoleType) VALUES (?, ?, ?)';
+		const inserts = [ req.body.consoleName, req.body.consoleDeveloper, req.body.consoleType];
+
+		console.log(req.body)
+
+		mysql.pool.query(sqlQuery, inserts, function(error, results, fields) {
+			if (error) {
+				console.log(error);
+				res.end();
+			}
+			res.redirect('/admin/consoles');
 		});
 	});
 
