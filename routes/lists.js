@@ -55,8 +55,7 @@ module.exports = (function() {
 		const sqlQuery =
 			'SELECT g.gameID, g.gameName, c.consoleName ' +
 			'FROM Games g ' +
-			'LEFT JOIN GamesConsoles gc ON gc.gameID = g.gameID ' +
-			'LEFT JOIN Consoles c ON gc.consoleID = c.consoleID ' +
+			'LEFT JOIN Consoles c ON g.consoleID = c.consoleID ' +
 			'ORDER BY gameName, consoleName';
 		mysql.pool.query(sqlQuery, function(error, results, fields) {
 			if (error) {
