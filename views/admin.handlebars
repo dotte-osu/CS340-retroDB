@@ -55,10 +55,57 @@
         {{/each}}
 
         <tr>
-            <td colspan="7"><button class="btn btn-secondary">Add game</button></td>
+            {{!-- <td colspan="7"><button class="btn btn-secondary">Add game</button></td> --}}
         </tr>
     </tbody>
 </table>
+
+<h2>New Game:</h2>
+<form action="/admin/games" method="post">
+ 
+    <div class="form-row">
+        {{!-- game name --}}
+        <div class="col-md-4">
+            <label for="gameName">Name</label>
+            <input type="text" class="form-control" name="gameName" id="gameName">
+        </div>
+
+        {{!-- console --}}
+        <div class="col-md-3">
+            <label for="consoleID">Console</label>
+            <select class="form-control" name="consoleID" id="consoleID">
+                {{#each consoles}}
+                <option value="{{this.consoleID}}">{{this.consoleName}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        {{!-- publisher --}}
+        <div class="col-md-3">
+            <label for="publisherID">Publisher</label>
+            <select class="form-control" name="publisherID" id="publisherID">
+                {{#each publishers}}
+                <option value="{{this.publisherID}}">{{this.publisherName}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        {{!-- release year --}}
+        <div class="col-md-2">
+            <label for="gameReleaseYear">Release Year</label>
+            <input type="number" class="form-control" name= "gameReleaseYear" id="gameReleaseYear">
+        </div>
+    </div>
+
+    {{!-- submit --}}
+    <div class="form-row">
+        <div class="col-auto mt-3">
+            <button class="btn btn-secondary">Add game</button>
+        </div>
+    </div>
+
+</form>
+
 {{/if}}
 
 {{#if consolesActive}}
