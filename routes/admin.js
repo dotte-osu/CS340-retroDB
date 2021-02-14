@@ -155,10 +155,6 @@ module.exports = (function() {
 
 	// adds a game, redirects to the games page after adding
 	adminRouter.post('/games', function(req, res) {
-		var context = {
-			admin: true,
-			gamesActive: 'active'
-		};
 		const sqlQuery =
 			'INSERT INTO Games (gameName, gameReleaseYear, consoleID, publisherID) VALUES (?, ?, ?, ?)';
 		const inserts = [ req.body.gameName, req.body.gameReleaseYear, req.body.consoleID, req.body.publisherID ];
@@ -173,15 +169,9 @@ module.exports = (function() {
 
 	// adds a console, redirects to the consoles page after adding
 	adminRouter.post('/consoles', function(req, res) {
-		var context = {
-			admin: true,
-			consolessActive: 'active'
-		};
 		const sqlQuery =
 			'INSERT INTO Consoles (consoleName, consoleDeveloper, consoleType) VALUES (?, ?, ?)';
 		const inserts = [ req.body.consoleName, req.body.consoleDeveloper, req.body.consoleType];
-
-		console.log(req.body)
 
 		mysql.pool.query(sqlQuery, inserts, function(error, results, fields) {
 			if (error) {
@@ -189,6 +179,21 @@ module.exports = (function() {
 				res.end();
 			}
 			res.redirect('/admin/consoles');
+		});
+	});
+
+	// adds a publisher, redirects to the publishers page after adding
+	adminRouter.post('/publishers', function(req, res) {
+		const sqlQuery =
+			'INSERT INTO Publishers (publisherName, yearFounded, hqCountry, ceo) VALUES (?, ?, ?, ?)';
+		const inserts = [ req.body.publisherName, req.body.yearFounded, req.body.hqCountry, req.body.ceo];
+
+		mysql.pool.query(sqlQuery, inserts, function(error, results, fields) {
+			if (error) {
+				console.log(error);
+				res.end();
+			}
+			res.redirect('/admin/publishers');
 		});
 	});
 

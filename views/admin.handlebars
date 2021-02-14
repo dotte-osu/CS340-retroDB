@@ -212,6 +212,49 @@
         {{/each}}
     </tbody>
 </table>
+
+<h2>New Publisher:</h2>
+<form action="/admin/publishers" method="post">
+ 
+    <div class="form-row">
+        {{!-- game name --}}
+        <div class="col-md-4">
+            <label for="publisherName">Name</label>
+            <input type="text" class="form-control" name="publisherName" id="publisherName">
+        </div>
+
+        {{!-- year founded --}}
+        <div class="col-md-2">
+            <label for="yearFounded">Year Founded</label>
+            <input type="number" class="form-control" name= "yearFounded" id="yearFounded">
+        </div>
+
+        {{!-- HQ country --}}
+        <div class="col-md-3">
+            <label for="hqCountry">HQ Country</label>
+            <input type="text" class="form-control" name="hqCountry" id="hqCountry">
+            </select>
+        </div>
+
+        {{!-- CEO --}}
+        <div class="col-md-3">
+            <label for="ceo">CEO</label>
+            <input type="text" class="form-control" name="ceo" id="ceo">
+            </select>
+        </div>
+
+        
+    </div>
+
+    {{!-- submit --}}
+    <div class="form-row">
+        <div class="col-auto mt-3">
+            <button class="btn btn-secondary">Add publisher</button>
+        </div>
+    </div>
+
+</form>
+
 {{/if}}
 
 
