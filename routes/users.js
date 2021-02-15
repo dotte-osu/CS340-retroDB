@@ -84,6 +84,13 @@ module.exports = (function() {
 		res.render('register', { register: true, style: 'login.css' });
 	});
 
+	userRouter.post('/logout', function(req, res) {
+		if (req.session.username) {
+			req.session = null;
+			res.redirect('/');
+		}
+	});
+
 	userRouter.get('/:username', function(req, res) {
 		var callbackCount = 0;
 		var context = {};
@@ -106,20 +113,6 @@ module.exports = (function() {
 		}
 	});
 
-	// userRouter.post('/login', function(req, res) {
-	// 	const { username, password } = req.body;
-
-	// 	// debug
-	// 	let userInfo = {
-	// 		username: username,
-	// 		password: password
-	// 	};
-	// 	console.log(userInfo);
-	// 	// end debug
-
-	// 	res.redirect('/user');
-	// });
-
 	// creates a new user and redirects to user page
 	userRouter.post('/register', async function(req, res) {
 		if (checkPassword(req.body.password, req.body.confirmPassword)) {
@@ -138,8 +131,6 @@ module.exports = (function() {
 					res.render('register', context);
 				} else {
 					req.session.username = req.body.username;
-
-					// redirect to user page
 					res.redirect('/user/' + req.body.username);
 				}
 			});
@@ -172,11 +163,12 @@ module.exports = (function() {
 							res.render('login', { login: true, error: true });
 						}
 					});
-					
 				}
 			}
 		}
 	});
+
+	
 
 	return userRouter;
 })();
