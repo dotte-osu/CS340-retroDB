@@ -84,8 +84,9 @@ module.exports = (function() {
 		res.render('register', { register: true, style: 'login.css' });
 	});
 
-	userRouter.post('/logout', function(req, res) {
+	userRouter.get('/logout', function(req, res) {
 		if (req.session.username) {
+			req.session.destroy();
 			req.session = null;
 			res.redirect('/');
 		}

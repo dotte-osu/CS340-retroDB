@@ -17,7 +17,7 @@
                 <li class="nav-item {{#if user}}active{{/if}}">
                     <a class="nav-link" href="/user">My Page</a>
                 </li>
-                {{#unless username}}
+                {{#unless user}}
                 <li class="nav-item {{#if login}}active{{/if}}">
                     <a class="nav-link" href="/user/login">Log In</a>
                 </li>
@@ -29,7 +29,7 @@
                     <a class="nav-link" href="/admin">Admin</a>
                 </li>
 
-                {{#if username}}
+                {{#if user}}
                 <li>
                     <a class="nav-link" href="/user/logout">Log Out</a>
                 </li>

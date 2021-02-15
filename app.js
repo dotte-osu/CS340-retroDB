@@ -21,7 +21,7 @@ app.engine(
 );
 
 app.use(function(req, res, next) {
-	res.locals.username = req.session.username;
+	res.locals.user = req.session.username;
 	next();
 });
 
