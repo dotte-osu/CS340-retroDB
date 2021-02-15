@@ -2,6 +2,11 @@
     <h1>Create List</h1>
     <form action="/list/create" method="post">
 
+        {{!-- created by --}}
+        <div class="form-group">
+            <input type="hidden" id="createdBy" name="createdBy" value={{userID}}>
+        </div>
+
         {{!-- list name --}}
         <div class="form-group">
             <label for="listName">List name</label>
