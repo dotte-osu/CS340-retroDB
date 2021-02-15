@@ -20,7 +20,9 @@
                 <a href="/list?q={{this.listID}}" class="list-group-item list-group-item-action">{{this.listName}}</a>
                 {{/each}}
             </div>
-                <a href="/list/create" class="btn btn-secondary">New List</a>
+                {{#if myPage}}
+                <a href="/list/create?user={{user}}" class="btn btn-secondary">New List</a>
+                {{/if}}
         </div>
 
     </div>

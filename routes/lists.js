@@ -76,7 +76,6 @@ module.exports = (function() {
 		function complete() {
 			callbackCount++;
 			if (callbackCount >= 3) {
-
 				// add order of list
 				for (let i = 0; i < context.games.length; i++) {
 					context.games[i].order = i + 1;
@@ -92,15 +91,19 @@ module.exports = (function() {
 		var context = {};
 		getSortedGames(req, res, mysql, context, complete);
 		function complete() {
-			callbackCount++;
-			if (callbackCount >= 1) {
-				res.render('create', context);
+			if (req.session.username == req.query.user) {
+				callbackCount++;
+				if (callbackCount >= 1) {
+					res.render('create', context);
+				}
+			} else {
+				res.redirect('/');
 			}
 		}
 	});
 
 	listRouter.post('/create', function(req, res) {
-		console.log(req.body)
+		console.log(req.body);
 		const { name, game } = req.body;
 
 		// debug
