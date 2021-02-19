@@ -1,4 +1,4 @@
--- NOTE: The : character will be used to dentoe variables that will
+-- NOTE: The : character will be used to denote variables that will
 -- have data from the backend programming language
 
 -- Query for Home page table 
@@ -72,12 +72,18 @@ INNER JOIN Publishers p on g.publisherID = p.publisherID
 WHERE l.listID = :listID;
 
 
--- Query for Lists page (gets a list name by listID in query)
-SELECT listName FROM Lists WHERE listID = :listID;
+-- Query for Lists page (gets list info by listID in query)
+SELECT * FROM Lists WHERE listID = :listID;
 
 
--- Query for Lists page (gets a list description by listID in query)
-SELECT listDescription FROM Lists WHERE listID = :listID;
+-- Query for Lists page (gets games associated with listID)
+SELECT gameName, gameReleaseYear, c.consoleName AS console, p.publisherName AS publisher
+FROM Games g 
+INNER JOIN GamesLists gl on gl.gameID = g.gameID 
+INNER JOIN Lists l on l.listID = gl.listID 
+INNER JOIN Consoles c on g.consoleID = c.consoleID 
+INNER JOIN Publishers p on g.publisherID = p.publisherID 
+WHERE l.listID = :listID;
 
 
 -- Query for List Creation page (gets a list of all games sorted by game name then console name)
@@ -86,6 +92,16 @@ FROM Games g
 LEFT JOIN GamesConsoles gc ON gc.gameID = g.gameID
 LEFT JOIN Consoles c ON gc.consoleID = c.consoleID
 ORDER BY gameName, consoleName;
+
+
+-- INSERT query for list creation page (creates new list)
+INSERT INTO Lists (listName, listDescription, lastUpdated, createdBy)
+VALUES ():listName, :listDescription, :lastUpdated, :createdBy);
+
+
+-- INSERT query for list creation page (creates list/game associations)
+-- Note that this query is made for each game in the created list
+INSERT INTO GamesLists (listID, gameID) VALUES (:listID, :gameID)
 
 
 -- SELECT queries for Admin page
@@ -128,8 +144,9 @@ DELETE FROM Publishers WHERE publisherID = :publisherID;
 DELETE FROM Users WHERE userID = :userID;
 
 
--- DELETE query for Lists page
+-- DELETE queries for Lists page
 DELETE FROM Lists WHERE listID = :listID;
+DELETE FROM GamesLists WHERE listID = :listID;
 
 
 -- INSERT query for Register page
