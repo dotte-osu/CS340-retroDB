@@ -2,7 +2,48 @@
 
     {{#if gameActive}}
     <form action="../admin/update" method="post">
-        
+        {{!-- game name --}}
+        <div class="form-group">
+            <label for="gameName">Name</label>
+            <input type="text" class="form-control" name="gameName" id="gameName" value="{{gameName}}">
+        </div>
+
+        {{!-- console --}}
+        <div class="form-group">
+            <label for="consoleID">Console</label>
+            <select class="form-control" name="consoleID" id="consoleID">
+                {{!-- TODO: select correct console --}}
+                {{#each consoles}}
+                <option value="{{this.consoleID}}">{{this.consoleName}}</option>
+                {{/each}}
+
+
+            </select>
+        </div>
+
+        {{!-- publisher --}}
+        <div class="form-group">
+            <label for="publisherID">Publisher</label>
+            <select class="form-control" name="publisherID" id="publisherID">
+                {{!-- TODO: select correct publisher --}}
+                {{#each publishers}}
+                <option value="{{this.publisherID}}">{{this.publisherName}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        {{!-- release year --}}
+        <div class="form-group">
+            <label for="gameReleaseYear">Release Year</label>
+            <input type="number" class="form-control" name= "gameReleaseYear" id="gameReleaseYear" value="{{gameReleaseYear}}">
+        </div>
+
+        {{!-- submit --}}
+        <div class="form-group">
+            <button class="btn btn-secondary">Update game</button>
+            <a class="btn btn-outline-secondary" href="/admin/games">Cancel</a>
+        </div>
+    
     </form>
     {{/if}}
 
