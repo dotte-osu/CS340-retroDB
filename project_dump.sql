@@ -9,7 +9,7 @@ CREATE TABLE `Consoles` (
   PRIMARY KEY (`consoleID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- intert dummy data
+-- insert dummy data
 INSERT INTO `Consoles`(`consoleName`, `consoleDeveloper`, `consoleType`) 
 VALUES ('Super Nintendo Entertainment System','Nintendo','Home Console'),
 ('Nintendo 64','Nintendo','Home Console'),
@@ -26,7 +26,7 @@ CREATE TABLE `Games` (
   PRIMARY KEY (`gameID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- intert dummy data
+-- insert dummy data
 INSERT INTO `Games`(`gameName`, `gameReleaseYear`, `publisherID`) 
 VALUES ('Super Mario',1985,1),('Dr. Mario 64',2001,1),
 ('Aerobiz Supersonic',1994,2),('Sonic the Hedgehog',1991,2)
@@ -44,11 +44,29 @@ CREATE TABLE `Publishers` (
   PRIMARY KEY (`publisherID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- intert dummy data
+-- insert dummy data
 INSERT INTO `Publishers`(`publisherName`, `yearFounded`, `hqCountry`, `ceo`) 
 VALUES ('Nintendo',1889,'Japan','Shuntaro Furukawa'),
 ('Sega',1960,'Japan','Haruki Satomi'),
 ('Atari',1972,'United States','Frederic Chesnais');
+
+-- Create Consoles table
+DROP TABLE IF EXISTS `Consoles`;
+CREATE TABLE `Consoles` (
+ `consoleID` int(11) not null AUTO_INCREMENT,
+ `consoleName` varchar(255) not null,
+ `consoleReleaseYear` int(4),
+ `consoleDeveloper` varchar(255),
+ `consoleType` varchar(255),
+  PRIMARY KEY (`consoleID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- insert dummy data
+INSERT INTO `Consoles`(`consoleName`, `consoleReleaseYear`, `consoleDeveloper`, `consoleType`) 
+VALUES ('Super Nintendo Entertainment System',1996,'Nintendo','Home Console'),
+('Nintendo 64',1990,'Nintendo','Home Console'),
+('Sega Genesis',1989,'Sega','Home Console'),
+('Atari 2600',1977,'Atari','Home Console');
 
 -- Create GamesConsoles table
 DROP TABLE IF EXISTS `GamesConsoles`;
@@ -59,7 +77,7 @@ CREATE TABLE `GamesConsoles` (
   CONSTRAINT `game_fk_2` FOREIGN KEY (`consoleID`) REFERENCES `Consoles` (`consoleID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- intert dummy data
+-- insert dummy data
 INSERT INTO `GamesConsoles`(`gameID`, `consoleID`) 
 VALUES (1,1),(2,2),(3,3),(4,3),(5,3),(6,4);
 
@@ -89,4 +107,25 @@ CREATE TABLE `GamesLists` (
 
 -- insert dummy data
 INSERT INTO `GamesLists`(`listID`, `gameID`)
-VALUES (1,1),(1,2),(1,4),(2,3),(2,5),(2,6)
+VALUES (1,1),(1,2),(1,4),(2,3),(2,5),(2,6),(3,6);
+
+-- Create Users table
+DROP TABLE IF EXISTS `Users`;
+CREATE TABLE `Users` (
+  `userID` int(11) AUTO_INCREMENT NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `firstName` varchar(255),
+  `lastName` varchar(255),
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  PRIMARY KEY(`userID`),
+  CONSTRAINT UNIQUE (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- insert dummy data
+-- NOTE: these user aren't accessibly due to password hashing.
+-- I left the INSERTs in for the putpose of the assignment
+INSERT INTO `Users`(`username`, `firstName`, `lastName`, `email`, `password`)
+VALUES ('test', 'Foo', 'Bar', 'fake@email.io', 'password1');
+INSERT INTO `Users` (`username`, `email`, `password`)
+VALUES ('noname', 'mystery@aol.com', 'password1');
