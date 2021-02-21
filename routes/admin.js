@@ -9,7 +9,8 @@ module.exports = (function() {
 			'SELECT g.gameID, g.gameName, g.gameReleaseYear, c.consoleName, p.publisherName ' +
 			'FROM Games g ' +
 			'INNER JOIN Consoles c ON g.consoleID = c.consoleID ' +
-			'INNER JOIN Publishers p ON g.publisherID = p.publisherID';
+			'INNER JOIN Publishers p ON g.publisherID = p.publisherID ' +
+			'ORDER BY g.gameID';
 		mysql.pool.query(sqlQuery, function(error, results, fields) {
 			if (error) {
 				console.log('Failed to fetch Games:', error);
@@ -22,7 +23,7 @@ module.exports = (function() {
 	}
 
 	function getAllConsoles(req, res, mysql, context, complete) {
-		const sqlQuery = 'SELECT * FROM Consoles';
+		const sqlQuery = 'SELECT * FROM Consoles ORDER BY consoleID';
 		mysql.pool.query(sqlQuery, function(error, results, fields) {
 			if (error) {
 				console.log('Failed to fetch Consoles:', error);
@@ -35,7 +36,7 @@ module.exports = (function() {
 	}
 
 	function getAllPublishers(req, res, mysql, context, complete) {
-		const sqlQuery = 'SELECT * FROM Publishers';
+		const sqlQuery = 'SELECT * FROM Publishers ORDER BY publisherID';
 		mysql.pool.query(sqlQuery, function(error, results, fields) {
 			if (error) {
 				console.log('Failed to fetch Publishers:', error);
@@ -48,7 +49,7 @@ module.exports = (function() {
 	}
 
 	function getAllUsers(req, res, mysql, context, complete) {
-		const sqlQuery = 'SELECT * FROM Users';
+		const sqlQuery = 'SELECT * FROM Users ORDER BY userID';
 		mysql.pool.query(sqlQuery, function(error, results, fields) {
 			if (error) {
 				console.log('Failed to fetch Users:', error);
@@ -67,6 +68,7 @@ module.exports = (function() {
 				console.log('Failed to fetch Game:', error);
 				res.end();
 			}
+			context.gameID = req.params.id;
 			context.gameName = results[0].gameName;
 			context.gameReleaseYear = results[0].gameReleaseYear;
 			context.consoleID = results[0].consoleID;
@@ -82,6 +84,7 @@ module.exports = (function() {
 				console.log('Failed to fetch Console:', error);
 				res.end();
 			}
+			context.consoleID = req.params.id;
 			context.consoleName = results[0].consoleName;
 			context.consoleDeveloper = results[0].consoleDeveloper;
 			context.consoleReleaseYear = results[0].consoleReleaseYear;
@@ -105,6 +108,7 @@ module.exports = (function() {
 				console.log('Failed to fetch Publisher:', error);
 				res.end();
 			}
+			context.publisherID = req.params.id;
 			context.publisherName = results[0].publisherName;
 			context.yearFounded = results[0].yearFounded;
 			context.hqCountry = results[0].hqCountry;
@@ -121,6 +125,7 @@ module.exports = (function() {
 				console.log('Failed to fetch User:', error);
 				res.end();
 			}
+			context.userID = req.params.id;
 			context.username = results[0].username;
 			context.firstName = results[0].firstName;
 			context.lastName = results[0].lastName;
@@ -330,6 +335,62 @@ module.exports = (function() {
 			}
 			res.redirect('/admin/publishers');
 		});
+	});
+
+	// updates a game, reirects to the games page after updating
+	adminRouter.post('/update/game/:id', function(req, res) {
+		const sqlQuery = 'UPDATE Games SET gameName = ?, gameReleaseYear = ?, consoleID = ?, publisherID = ? WHERE gameID = ?';
+		const inserts = [req.body.gameName, req.body.gameReleaseYear, req.body.consoleID, req.body.publisherID, req.params.id];
+
+		mysql.pool.query(sqlQuery, inserts, function(error, results, fields) {
+			if (error) {
+				console.log(error);
+				res.end();
+			}
+			res.redirect('/admin/games')
+		})
+	});
+
+	// updates a console, reirects to the consoles page after updating
+	adminRouter.post('/update/console/:id', function(req, res) {
+		const sqlQuery = 'UPDATE Consoles SET consoleName = ?, consoleReleaseYear = ?, consoleDeveloper = ?, consoleType = ? WHERE consoleID = ?';
+		const inserts = [req.body.consoleName, req.body.consoleReleaseYear, req.body.consoleDeveloper, req.body.consoleType, req.params.id];
+
+		mysql.pool.query(sqlQuery, inserts, function(error, results, fields) {
+			if (error) {
+				console.log(error);
+				res.end();
+			}
+			res.redirect('/admin/consoles')
+		})
+	});
+
+	// updates a publisher, reirects to the publishers page after updating
+	adminRouter.post('/update/publisher/:id', function(req, res) {
+		const sqlQuery = 'UPDATE Publishers SET publisherName = ?, yearFounded = ?, hqCountry = ?, ceo = ? WHERE publisherID = ?';
+		const inserts = [req.body.publisherName, req.body.yearFounded, req.body.hqCountry, req.body.ceo, req.params.id];
+
+		mysql.pool.query(sqlQuery, inserts, function(error, results, fields) {
+			if (error) {
+				console.log(error);
+				res.end();
+			}
+			res.redirect('/admin/publishers')
+		})
+	});
+
+	// updates a user, reirects to the users page after updating
+	adminRouter.post('/update/user/:id', function(req, res) {
+		const sqlQuery = 'UPDATE Users SET username = ?, firstName = ?, lastName = ?, email = ? WHERE userID = ?';
+		const inserts = [req.body.username, req.body.firstName, req.body.lastName, req.body.email, req.params.id];
+
+		mysql.pool.query(sqlQuery, inserts, function(error, results, fields) {
+			if (error) {
+				console.log(error);
+				res.end();
+			}
+			res.redirect('/admin/users')
+		})
 	});
 
 	return adminRouter;

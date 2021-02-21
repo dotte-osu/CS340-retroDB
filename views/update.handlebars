@@ -2,7 +2,7 @@
 
     {{#if gameActive}}
     <h2>Update Game</h2>
-    <form action="../admin/update/game" method="post">
+    <form action="/admin/update/game/{{gameID}}" method="post">
         {{!-- game name --}}
         <div class="form-group">
             <label for="gameName">Name</label>
@@ -48,7 +48,7 @@
 
     {{#if consoleActive}}
     <h2>Update Console</h2>
-    <form action="../admin/update/console" method="post">
+    <form action="/admin/update/console/{{consoleID}}" method="post">
         {{!-- console name --}}
         <div class="form-group">
             <label for="consoleName">Name</label>
@@ -88,7 +88,7 @@
 
         {{!-- submit --}}
         <div class="form-group">
-            <button class="btn btn-secondary"Update console</button>
+            <button class="btn btn-secondary">Update console</button>
             <a class="btn btn-outline-secondary" href="/admin/consoles">Cancel</a>
         </div>
     </form>
@@ -96,7 +96,7 @@
 
     {{#if publisherActive}}
     <h2>Update Publisher</h2>
-    <form action="../admin/update/publisher" method="post">
+    <form action="/admin/update/publisher/{{publisherID}}" method="post">
         {{!-- game name --}}
         <div class="form-group">
             <label for="publisherName">Name</label>
@@ -133,7 +133,7 @@
 
     {{#if userActive}}
     <h2>Update User</h2>
-    <form action="../admin/update/publisher" method="post">
+    <form action="/admin/update/user/{{userID}}" method="post">
         {{!-- username --}}
         <div class="form-group">
             <label for="username">Username</label>
