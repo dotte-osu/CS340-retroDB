@@ -127,7 +127,7 @@
             <td>{{this.consoleDeveloper}}</td>
             <td>{{this.consoleType}}</td>
             <td><button class="btn btn-danger">Delete</button></td>
-            <td><button class="btn btn-warning">Update</button></td>
+            <td><a class="btn btn-warning" href="/admin/update/console/{{this.consoleID}}">Update</a></td>
         </tr>
         {{/each}}
     </tbody>
@@ -209,7 +209,7 @@
             <td>{{this.hqCountry}}</td>
             <td>{{this.ceo}}</td>
             <td><button class="btn btn-danger">Delete</button></td>
-            <td><button class="btn btn-warning">Update</button></td>
+            <td><a class="btn btn-warning" href="/admin/update/publisher/{{this.publisherID}}">Update</a></td>
         </tr>
         {{/each}}
     </tbody>
@@ -283,7 +283,7 @@
             <td>{{this.lastName}}</td>
             <td>{{this.email}}</td>
             <td><button class="btn btn-danger">Delete</button></td>
-            <td><button class="btn btn-warning">Update</button></td>
+            <td><a class="btn btn-warning" href="/admin/update/user/{{this.userID}}">Update</a></td>
         </tr>
         {{/each}}
 
