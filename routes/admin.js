@@ -60,6 +60,60 @@ module.exports = (function() {
 		});
 	}
 
+	function getGameByID(req, res, mysql, context, complete) {
+		const sqlQuery = 'SELECT * FROM Games WHERE gameID = ?';
+		mysql.pool.query(sqlQuery, req.params.id, function(error, results, fields) {
+			if (error) {
+				console.log('Failed to fetch Game:', error);
+				res.end();
+			}
+			context.gameName = results[0].gameName;
+			context.gameReleaseYear = results[0].gameReleaseYear;
+			context.consoleID = results[0].consoleID;
+			context.publisherID = results[0].publisherID;
+			complete();
+		});
+	}
+
+	function getConsoleByID(req, res, mysql, context, complete) {
+		const sqlQuery = 'SELECT * FROM Consoles WHERE consoleID = ?';
+		mysql.pool.query(sqlQuery, req.params.id, function(error, results, fields) {
+			if (error) {
+				console.log('Failed to fetch Game:', error);
+				res.end();
+			}
+			context.consoleName = results[0].consoleName;
+			context.consoleDeveloper = results[0].consoleDeveloper;
+			context.consoleReleaseYear = results[0].consoleReleaseYear;
+
+			// Check the proper console type
+			if (results[0].consoleType == 'Home Console') {
+				context.homeChecked = 'checked'
+			} else if (results[0].consoleType == 'Handheld') {
+				context.handheldChecked = 'checked'
+			} else if (results[0].consoleType == 'Hybrid') {
+				context.hybridChecked = 'checked'
+			}
+			complete();
+		});
+	}
+
+	function selectConsoleFromConsoleID(context) {
+		for (var i = 0; i < context.consoles.length; i++) {
+			if (context.consoles[i].consoleID == context.consoleID) {
+				context.consoles[i].selected = 'selected';
+			}
+		}
+	}
+
+	function selectPublisherFromPublisherID(context) {
+		for (var i = 0; i < context.publishers.length; i++) {
+			if (context.publishers[i].publisherID == context.publisherID) {
+				context.publishers[i].selected = 'selected';
+			}
+		}
+	}
+
 	adminRouter.get('/', function(req, res) {
 		var context = {
 			admin: true,
@@ -138,18 +192,36 @@ module.exports = (function() {
 	adminRouter.get('/update/game/:id', function(req, res) {
 		var context = { admin: true };
 		context.gameActive = 'active';
-		// TODO: add game data to context based off of id
+		callbackCount = 0;
 
-		res.render('update', context);
+		getAllConsoles(req, res, mysql, context, complete);
+		getAllPublishers(req, res, mysql, context, complete);
+		getGameByID(req, res, mysql, context, complete);
+
+		function complete() {
+			callbackCount++;
+			if (callbackCount >= 3) {
+				selectConsoleFromConsoleID(context);
+				selectPublisherFromPublisherID(context);
+				res.render('update', context);
+			}
+		}
 	});
 
 	adminRouter.get('/update/console/:id', function(req, res) {
 		var context = { admin: true };
 		context.consoleActive = 'active';
-		// TODO: add console data to context based off of id
+		callbackCount = 0;
 
-		res.render('update', context);
-	})
+		getConsoleByID(req, res, mysql, context, complete)
+
+		function complete() {
+			callbackCount++;
+			if (callbackCount >= 1) {
+				res.render('update', context);
+			}
+		}
+	});
 
 	adminRouter.get('/update/publisher/:id', function(req, res) {
 		var context = { admin: true };
@@ -157,7 +229,7 @@ module.exports = (function() {
 		// TODO: add publisher data to context based off of id
 
 		res.render('update', context);
-	})
+	});
 
 	adminRouter.get('/update/user/:id', function(req, res) {
 		var context = { admin: true };
@@ -165,7 +237,7 @@ module.exports = (function() {
 		// TODO: add user data to context based off of id
 
 		res.render('update', context);
-	})
+	});
 
 	// adds a game, redirects to the games page after adding
 	adminRouter.post('/games', function(req, res) {
@@ -182,8 +254,14 @@ module.exports = (function() {
 
 	// adds a console, redirects to the consoles page after adding
 	adminRouter.post('/consoles', function(req, res) {
-		const sqlQuery = 'INSERT INTO Consoles (consoleName, consoleReleaseYear, consoleDeveloper, consoleType) VALUES (?, ?, ?, ?)';
-		const inserts = [ req.body.consoleName, req.body.consoleReleaseYear, req.body.consoleDeveloper, req.body.consoleType ];
+		const sqlQuery =
+			'INSERT INTO Consoles (consoleName, consoleReleaseYear, consoleDeveloper, consoleType) VALUES (?, ?, ?, ?)';
+		const inserts = [
+			req.body.consoleName,
+			req.body.consoleReleaseYear,
+			req.body.consoleDeveloper,
+			req.body.consoleType
+		];
 
 		mysql.pool.query(sqlQuery, inserts, function(error, results, fields) {
 			if (error) {
