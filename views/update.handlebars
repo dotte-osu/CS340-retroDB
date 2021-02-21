@@ -88,17 +88,88 @@
 
         {{!-- submit --}}
         <div class="form-group">
-                <button class="btn btn-secondary">Add console</button>
+            <button class="btn btn-secondary"Update console</button>
+            <a class="btn btn-outline-secondary" href="/admin/consoles">Cancel</a>
         </div>
     </form>
     {{/if}}
 
     {{#if publisherActive}}
-    <h2>publisher</h2>
+    <h2>Update Publisher</h2>
+    <form action="../admin/update/publisher" method="post">
+        {{!-- game name --}}
+        <div class="form-group">
+            <label for="publisherName">Name</label>
+            <input type="text" class="form-control" name="publisherName" id="publisherName" value="{{publisherName}}">
+        </div>
+
+        {{!-- year founded --}}
+        <div class="form-group">
+            <label for="yearFounded">Year Founded</label>
+            <input type="number" class="form-control" name= "yearFounded" id="yearFounded" value="{{yearFounded}}">
+        </div>
+
+        {{!-- HQ country --}}
+        <div class="form-group">
+            <label for="hqCountry">HQ Country</label>
+            <input type="text" class="form-control" name="hqCountry" id="hqCountry" value="{{hqCountry}}">
+            </select>
+        </div>
+
+        {{!-- CEO --}}
+        <div class="form-group">
+            <label for="ceo">CEO</label>
+            <input type="text" class="form-control" name="ceo" id="ceo" value="{{ceo}}">
+            </select>
+        </div>
+
+        {{!-- submit --}}
+        <div class="form-group">
+            <button class="btn btn-secondary">Update publisher</button>
+            <a class="btn btn-outline-secondary" href="/admin/publishers">Cancel</a>
+        </div>
+    </form>
     {{/if}}
 
     {{#if userActive}}
-    <h2>user</h2>
+    <h2>Update User</h2>
+    <form action="../admin/update/publisher" method="post">
+        {{!-- username --}}
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" class="form-control" value="{{username}}">
+        </div>
+
+        {{!-- first name (optional) --}}
+        <div class="form-group">
+                <label for="firstName">First name</label>
+                <input type="text" id="firstName" name="firstName" placeholder="optional" class="form-control" value="{{firstName}}">
+        </div>
+
+        {{!-- last name (optional) --}}
+        <div class="form-group">
+                <label for="lastName">Last name</label>
+                <input type="text" id="lastName" name="lastName" placeholder="optional" class="form-control" value="{{lastName}}">
+        </div>
+
+        {{!-- email --}}
+        <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" id="email" name="email" class="form-control" value="{{email}}">
+        </div>
+
+        {{!-- password --}}
+        <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" placeholder="Password update is disabled" disabled>
+        </div>
+
+        {{!-- submit --}}
+        <div class="form-group">
+            <button class="btn btn-secondary">Update user</button>
+            <a class="btn btn-outline-secondary" href="/admin/users">Cancel</a>
+        </div>
+    </form>
     {{/if}}
 
 

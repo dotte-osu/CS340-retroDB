@@ -79,7 +79,7 @@ module.exports = (function() {
 		const sqlQuery = 'SELECT * FROM Consoles WHERE consoleID = ?';
 		mysql.pool.query(sqlQuery, req.params.id, function(error, results, fields) {
 			if (error) {
-				console.log('Failed to fetch Game:', error);
+				console.log('Failed to fetch Console:', error);
 				res.end();
 			}
 			context.consoleName = results[0].consoleName;
@@ -88,12 +88,44 @@ module.exports = (function() {
 
 			// Check the proper console type
 			if (results[0].consoleType == 'Home Console') {
-				context.homeChecked = 'checked'
+				context.homeChecked = 'checked';
 			} else if (results[0].consoleType == 'Handheld') {
-				context.handheldChecked = 'checked'
+				context.handheldChecked = 'checked';
 			} else if (results[0].consoleType == 'Hybrid') {
-				context.hybridChecked = 'checked'
+				context.hybridChecked = 'checked';
 			}
+			complete();
+		});
+	}
+
+	function getPublisherByID(req, res, mysql, context, complete) {
+		const sqlQuery = 'SELECT * FROM Publishers WHERE publisherID = ?';
+		mysql.pool.query(sqlQuery, req.params.id, function(error, results, fields) {
+			if (error) {
+				console.log('Failed to fetch Publisher:', error);
+				res.end();
+			}
+			context.publisherName = results[0].publisherName;
+			context.yearFounded = results[0].yearFounded;
+			context.hqCountry = results[0].hqCountry;
+			context.ceo = results[0].ceo;
+
+			complete();
+		});
+	}
+
+	function getUserByID(req, res, mysql, context, complete) {
+		const sqlQuery = 'SELECT * FROM Users WHERE userID = ?';
+		mysql.pool.query(sqlQuery, req.params.id, function(error, results, fields) {
+			if (error) {
+				console.log('Failed to fetch User:', error);
+				res.end();
+			}
+			context.username = results[0].username;
+			context.firstName = results[0].firstName;
+			context.lastName = results[0].lastName;
+			context.email = results[0].email;
+
 			complete();
 		});
 	}
@@ -192,7 +224,7 @@ module.exports = (function() {
 	adminRouter.get('/update/game/:id', function(req, res) {
 		var context = { admin: true };
 		context.gameActive = 'active';
-		callbackCount = 0;
+		var callbackCount = 0;
 
 		getAllConsoles(req, res, mysql, context, complete);
 		getAllPublishers(req, res, mysql, context, complete);
@@ -211,9 +243,9 @@ module.exports = (function() {
 	adminRouter.get('/update/console/:id', function(req, res) {
 		var context = { admin: true };
 		context.consoleActive = 'active';
-		callbackCount = 0;
+		var callbackCount = 0;
 
-		getConsoleByID(req, res, mysql, context, complete)
+		getConsoleByID(req, res, mysql, context, complete);
 
 		function complete() {
 			callbackCount++;
@@ -226,17 +258,31 @@ module.exports = (function() {
 	adminRouter.get('/update/publisher/:id', function(req, res) {
 		var context = { admin: true };
 		context.publisherActive = 'active';
-		// TODO: add publisher data to context based off of id
+		var callbackCount = 0;
 
-		res.render('update', context);
+		getPublisherByID(req, res, mysql, context, complete);
+
+		function complete() {
+			callbackCount++;
+			if (callbackCount >= 1) {
+				res.render('update', context);
+			}
+		}
 	});
 
 	adminRouter.get('/update/user/:id', function(req, res) {
 		var context = { admin: true };
 		context.userActive = 'active';
-		// TODO: add user data to context based off of id
+		var callbackCount = 0;
 
-		res.render('update', context);
+		getUserByID(req, res, mysql, context, complete);
+
+		function complete() {
+			callbackCount++;
+			if (callbackCount >= 1) {
+				res.render('update', context);
+			}
+		}
 	});
 
 	// adds a game, redirects to the games page after adding
