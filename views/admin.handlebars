@@ -49,7 +49,7 @@
             <td>{{this.gameReleaseYear}}</td>
             <td>{{this.consoleName}}</td>
             <td>{{this.publisherName}}</td>
-            <td><button class="btn btn-danger">Delete</button></td>
+            <td><a class="btn btn-danger" href="/admin/delete/game/{{this.gameID}}">Delete</a></td>
             <td><a class="btn btn-warning" href="/admin/update/game/{{this.gameID}}">Update</a></td>
         </tr>
         {{/each}}
@@ -126,7 +126,7 @@
             <td>{{this.consoleReleaseYear}}</td>
             <td>{{this.consoleDeveloper}}</td>
             <td>{{this.consoleType}}</td>
-            <td><button class="btn btn-danger">Delete</button></td>
+            <td><a class="btn btn-danger" href="/admin/delete/console/{{this.consoleID}}">Delete</a></td>
             <td><a class="btn btn-warning" href="/admin/update/console/{{this.consoleID}}">Update</a></td>
         </tr>
         {{/each}}
@@ -208,7 +208,7 @@
             <td>{{this.yearFounded}}</td>
             <td>{{this.hqCountry}}</td>
             <td>{{this.ceo}}</td>
-            <td><button class="btn btn-danger">Delete</button></td>
+            <td><a class="btn btn-danger" href="/admin/delete/publisher/{{this.publisherID}}">Delete</a></td>
             <td><a class="btn btn-warning" href="/admin/update/publisher/{{this.publisherID}}">Update</a></td>
         </tr>
         {{/each}}
@@ -282,7 +282,7 @@
             <td>{{this.firstName}}</td>
             <td>{{this.lastName}}</td>
             <td>{{this.email}}</td>
-            <td><button class="btn btn-danger">Delete</button></td>
+            <td><a class="btn btn-danger" href="/admin/delete/user/{{this.userID}}">Delete</a></td>
             <td><a class="btn btn-warning" href="/admin/update/user/{{this.userID}}">Update</a></td>
         </tr>
         {{/each}}
