@@ -2,7 +2,7 @@ module.exports = (function() {
 	const express = require('express');
 	const userRouter = express.Router();
 	const mysql = require('../dbcon.js');
-	const bcrypt = require('bcrypt');
+	const bcrypt = require('bcrypt-nodejs');
 	const session = require('express-session');
 
 	function getUserByUsername(req, res, mysql, context, complete) {
@@ -20,7 +20,6 @@ module.exports = (function() {
 				context.username = results[0].username;
 				context.firstName = results[0].firstName;
 				context.lastName = results[0].lastName;
-				// TODO: context.user = true IF :username is logged in username
 			}
 			complete();
 		});
@@ -168,8 +167,6 @@ module.exports = (function() {
 			}
 		}
 	});
-
-	
 
 	return userRouter;
 })();

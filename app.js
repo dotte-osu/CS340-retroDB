@@ -4,7 +4,7 @@ const path = require('path');
 const handlebars = require('express-handlebars');
 const mysql = require('./dbcon.js');
 const session = require('express-session');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt-nodejs');
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
