@@ -65,24 +65,16 @@
             </tr>
         </thead>
         <tbody>
+            {{#each rows}}
             <tr>
-                <th scope="row">1</th>
-                <td><a href="/game?name=Super Mario">Super Mario</a></td>
-                <td>2000</td>
-                <td><a href="/console?name=Super Nintendo Entertainment System">Super Nintendo Entertainment System</a></td>
-                <td>Home Console</td>
-                <td>Nintendo</td>
-                <td><a href="/publisher?name=Nintendo">Nintendo</a></td>
-            </tr>
-            {{#each data}}
-            <tr>
-                <th scope="row">{{this.something}}</th>
-                <td>{{this.name}}</td>
-                <td>{{this.name}}</td>
-                <td>{{this.name}}</td>
-                <td>{{this.name}}</td>
-                <td>{{this.name}}</td>
-                <td>{{this.name}}</td>
+                <th scope="row" class="count"></th>
+                <td><a href="/game?name={{this.gameName}}">{{this.gameName}}</a></td>
+                <td>{{this.gameReleaseYear}}</td>
+                <td><a href="/console?name={{this.consoleName}}">{{this.consoleName}}</a></td>
+                <td>{{this.consoleType}}</td>
+                <td>{{this.consoleDeveloper}}</td>
+                <td><a href="/publisher?name={{this.publisherName}}">{{this.publisherName}}</a></td>
+    
             </tr>
             {{/each}}
         </tbody>
@@ -104,24 +96,16 @@
             </tr>
         </thead>
         <tbody>
+            {{#each rows}}
             <tr>
-                <th scope="row">1</th>
-                <td><a href="/game?name=Super Mario">Super Mario</a></td>
-                <td>2000</td>
-                <td><a href="/console?name=Super Nintendo Entertainment System">Super Nintendo Entertainment System</a></td>
-                <td>Home Console</td>
-                <td>Nintendo</td>
-                <td><a href="/publisher?name=Nintendo">Nintendo</a></td>
-            </tr>
-            {{#each data}}
-            <tr>
-                <th scope="row">{{this.something}}</th>
-                <td>{{this.name}}</td>
-                <td>{{this.name}}</td>
-                <td>{{this.name}}</td>
-                <td>{{this.name}}</td>
-                <td>{{this.name}}</td>
-                <td>{{this.name}}</td>
+                <th scope="row" class="count"></th>
+                <td><a href="/game?name={{this.gameName}}">{{this.gameName}}</a></td>
+                <td>{{this.gameReleaseYear}}</td>
+                <td><a href="/console?name={{this.consoleName}}">{{this.consoleName}}</a></td>
+                <td>{{this.consoleType}}</td>
+                <td>{{this.consoleDeveloper}}</td>
+                <td><a href="/publisher?name={{this.publisherName}}">{{this.publisherName}}</a></td>
+    
             </tr>
             {{/each}}
         </tbody>

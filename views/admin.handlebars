@@ -1,4 +1,20 @@
-{{!-- <div class="container"> 
+<ul class="nav nav-tabs mb-3">
+  <li class="nav-item">
+    <a class="nav-link {{gamesActive}}" href="/admin/games">Games</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {{consolesActive}}" href="/admin/consoles">Consoles</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {{publishersActive}}" href="/admin/publishers">Publishers</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {{usersActive}}" href="/admin/users">Users</a>
+  </li>
+</ul>
+
+{{#if message}}
+<div class="container"> 
     <h1 class="text-center">Admin Page</h1>
     <figure class="text-center">
         <blockquote class="blockquote">
@@ -8,8 +24,10 @@
             Uncle Ben, Spider-Man
         </figcaption>
     </figure>
-</div> --}}
+</div>
+{{/if}}
 
+{{#if gamesActive}}
 <h2>Games</h2>
 <table class="table table-striped">
     <thead>
@@ -24,36 +42,69 @@
         </tr>
     </thead>
     <tbody>
-        {{!-- example --}}
-        <tr>
-            <th scope="row">1</th>
-            <td>Mario Kart 64</td>
-            <td>2000</td>
-            <td>Nintendo 64</td>
-            <td>Nintendo</td> 
-            <td><button class="btn btn-danger">Delete</button></td>
-            <td><button class="btn btn-warning">Update</button></td>
-        </tr>
-        
-        {{!-- actual data TBD --}}
-        {{#each data}}
+        {{#each games}}
         <tr>
             <th scope="row">{{this.gameID}}</th>
             <td>{{this.gameName}}</td>
             <td>{{this.gameReleaseYear}}</td>
-            <td>{{this.console}}</td>
-            <td>{{this.publisher}}</td>
+            <td>{{this.consoleName}}</td>
+            <td>{{this.publisherName}}</td>
             <td><button class="btn btn-danger">Delete</button></td>
-            <td><button class="btn btn-warning">Update</button></td>
+            <td><a class="btn btn-warning" href="/admin/update/game/{{this.gameID}}">Update</a></td>
         </tr>
         {{/each}}
-
-        <tr>
-            <td colspan="7"><button class="btn btn-secondary">Add game</button></td>
-        </tr>
     </tbody>
 </table>
 
+<h2>New Game:</h2>
+<form action="/admin/games" method="post">
+ 
+    <div class="form-row">
+        {{!-- game name --}}
+        <div class="col-md-4">
+            <label for="gameName">Name</label>
+            <input type="text" class="form-control" name="gameName" id="gameName">
+        </div>
+
+        {{!-- console --}}
+        <div class="col-md-3">
+            <label for="consoleID">Console</label>
+            <select class="form-control" name="consoleID" id="consoleID">
+                {{#each consoles}}
+                <option value="{{this.consoleID}}">{{this.consoleName}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        {{!-- publisher --}}
+        <div class="col-md-3">
+            <label for="publisherID">Publisher</label>
+            <select class="form-control" name="publisherID" id="publisherID">
+                {{#each publishers}}
+                <option value="{{this.publisherID}}">{{this.publisherName}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        {{!-- release year --}}
+        <div class="col-md-2">
+            <label for="gameReleaseYear">Release Year</label>
+            <input type="number" class="form-control" name= "gameReleaseYear" id="gameReleaseYear">
+        </div>
+    </div>
+
+    {{!-- submit --}}
+    <div class="form-row">
+        <div class="col-auto mt-3">
+            <button class="btn btn-secondary">Add game</button>
+        </div>
+    </div>
+
+</form>
+
+{{/if}}
+
+{{#if consolesActive}}
 <h2>Consoles</h2>
 <table class="table table-striped">
     <thead>
@@ -68,19 +119,7 @@
         </tr>
     </thead>
     <tbody>
-        {{!-- example --}}
-        <tr>
-            <th scope="row">1</th>
-            <td>Nintendo 64</td>
-            <td>1996</td>
-            <td>Nintendo</td>
-            <td>Home Console</td> 
-            <td><button class="btn btn-danger">Delete</button></td>
-            <td><button class="btn btn-warning">Update</button></td>
-        </tr>
-
-        {{!-- actual data TBD --}}
-        {{#each data}}
+        {{#each consoles}}
         <tr>
             <th scope="row">{{this.consoleID}}</th>
             <td>{{this.consoleName}}</td>
@@ -88,16 +127,66 @@
             <td>{{this.consoleDeveloper}}</td>
             <td>{{this.consoleType}}</td>
             <td><button class="btn btn-danger">Delete</button></td>
-            <td><button class="btn btn-warning">Update</button></td>
+            <td><a class="btn btn-warning" href="/admin/update/console/{{this.consoleID}}">Update</a></td>
         </tr>
         {{/each}}
-
-        <tr>
-            <td colspan="7"><button class="btn btn-secondary">Add console</button></td>
-        </tr>
     </tbody>
 </table>
 
+<h2>New Console:</h2>
+<form action="/admin/consoles" method="post">
+ 
+    <div class="form-row">
+        {{!-- console name --}}
+        <div class="col-md-4">
+            <label for="consoleName">Name</label>
+            <input type="text" class="form-control" name="consoleName" id="consoleName">
+        </div>
+
+        {{!-- release year --}}
+        <div class="col-md-2">
+            <label for="consoleReleaseYear">Release Year</label>
+            <input type="number" class="form-control" name= "consoleReleaseYear" id="consoleReleaseYear">
+        </div>
+
+        {{!-- console developer --}}
+        <div class="col-md-4">
+            <label for="consoleDeveloper">Developer</label>
+            <input type="text" class="form-control" name="consoleDeveloper" id="consoleDeveloper">
+        </div>
+
+        {{!-- console type --}}
+        <div class="col-md-2">
+            <label for="consoleType">Console Type</label>
+            <div class="mt-2">
+                <div class="form-check form-check-inline">
+                    <input type="radio" name="consoleType" id="home" value="Home Console" class="form-check-input">
+                    <label for="home" class="form-check-label">Home</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="radio" name="consoleType" id="handheld" value="Handheld" class="form-check-input">
+                    <label for="handheld" class="form-check-label">Handheld</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="radio" name="consoleType" id="hybrid" value="Hybrid" class="form-check-input">
+                    <label for="hybrid" class="form-check-label">Hybrid</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{!-- submit --}}
+    <div class="form-row">
+        <div class="col-auto mt-3">
+            <button class="btn btn-secondary">Add console</button>
+        </div>
+    </div>
+
+</form>
+
+{{/if}}
+
+{{#if publishersActive}}
 <h2>Publishers</h2>
 <table class="table table-striped">
     <thead>
@@ -112,19 +201,7 @@
         </tr>
     </thead>
     <tbody>
-        {{!-- example --}}
-        <tr>
-            <th scope="row">1</th>
-            <td>Nintendo</td>
-            <td>1889</td>
-            <td>Japan</td>
-            <td>Shuntaro Furukawa</td> 
-            <td><button class="btn btn-danger">Delete</button></td>
-            <td><button class="btn btn-warning">Update</button></td>
-        </tr>
-
-        {{!-- actual data TBD --}}
-        {{#each data}}
+        {{#each publishers}}
         <tr>
             <th scope="row">{{this.publisherID}}</th>
             <td>{{this.publisherName}}</td>
@@ -132,16 +209,58 @@
             <td>{{this.hqCountry}}</td>
             <td>{{this.ceo}}</td>
             <td><button class="btn btn-danger">Delete</button></td>
-            <td><button class="btn btn-warning">Update</button></td>
+            <td><a class="btn btn-warning" href="/admin/update/publisher/{{this.publisherID}}">Update</a></td>
         </tr>
         {{/each}}
-
-        <tr>
-            <td colspan="7"><button class="btn btn-secondary">Add publisher</button></td>
-        </tr>
     </tbody>
 </table>
 
+<h2>New Publisher:</h2>
+<form action="/admin/publishers" method="post">
+ 
+    <div class="form-row">
+        {{!-- game name --}}
+        <div class="col-md-4">
+            <label for="publisherName">Name</label>
+            <input type="text" class="form-control" name="publisherName" id="publisherName">
+        </div>
+
+        {{!-- year founded --}}
+        <div class="col-md-2">
+            <label for="yearFounded">Year Founded</label>
+            <input type="number" class="form-control" name= "yearFounded" id="yearFounded">
+        </div>
+
+        {{!-- HQ country --}}
+        <div class="col-md-3">
+            <label for="hqCountry">HQ Country</label>
+            <input type="text" class="form-control" name="hqCountry" id="hqCountry">
+            </select>
+        </div>
+
+        {{!-- CEO --}}
+        <div class="col-md-3">
+            <label for="ceo">CEO</label>
+            <input type="text" class="form-control" name="ceo" id="ceo">
+            </select>
+        </div>
+
+        
+    </div>
+
+    {{!-- submit --}}
+    <div class="form-row">
+        <div class="col-auto mt-3">
+            <button class="btn btn-secondary">Add publisher</button>
+        </div>
+    </div>
+
+</form>
+
+{{/if}}
+
+
+{{#if usersActive}}
 <h2>Users</h2>
 <table class="table table-striped">
     <thead>
@@ -156,19 +275,7 @@
         </tr>
     </thead>
     <tbody>
-        {{!-- example --}}
-        <tr>
-            <th scope="row">1</th>
-            <td>gamerguy1990</td>
-            <td>John</td>
-            <td>Doe</td>
-            <td>jdoe@email.com</td> 
-            <td><button class="btn btn-danger">Delete</button></td>
-            <td><button class="btn btn-warning">Update</button></td>
-        </tr>
-
-        {{!-- actual data TBD --}}
-        {{#each data}}
+        {{#each users}}
         <tr>
             <th scope="row">{{this.userID}}</th>
             <td>{{this.username}}</td>
@@ -176,12 +283,13 @@
             <td>{{this.lastName}}</td>
             <td>{{this.email}}</td>
             <td><button class="btn btn-danger">Delete</button></td>
-            <td><button class="btn btn-warning">Update</button></td>
+            <td><a class="btn btn-warning" href="/admin/update/user/{{this.userID}}">Update</a></td>
         </tr>
         {{/each}}
 
         <tr>
-            <td colspan="7"><button class="btn btn-secondary">Add game</button></td>
+            <td colspan="7"><button class="btn btn-secondary" disabled>Register to add new user</button></td>
         </tr>
     </tbody>
 </table>
+{{/if}}

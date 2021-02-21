@@ -1,0 +1,177 @@
+<div class="container">
+
+    {{#if gameActive}}
+    <h2>Update Game</h2>
+    <form action="/admin/update/game/{{gameID}}" method="post">
+        {{!-- game name --}}
+        <div class="form-group">
+            <label for="gameName">Name</label>
+            <input type="text" class="form-control" name="gameName" id="gameName" value="{{gameName}}">
+        </div>
+
+        {{!-- console --}}
+        <div class="form-group">
+            <label for="consoleID">Console</label>
+            <select class="form-control" name="consoleID" id="consoleID">
+                {{#each consoles}}
+                <option value="{{this.consoleID}}" {{this.selected}}>{{this.consoleName}}</option>
+                {{/each}}
+
+
+            </select>
+        </div>
+
+        {{!-- publisher --}}
+        <div class="form-group">
+            <label for="publisherID">Publisher</label>
+            <select class="form-control" name="publisherID" id="publisherID">
+                {{#each publishers}}
+                <option value="{{this.publisherID}}" {{this.selected}}>{{this.publisherName}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        {{!-- release year --}}
+        <div class="form-group">
+            <label for="gameReleaseYear">Release Year</label>
+            <input type="number" class="form-control" name= "gameReleaseYear" id="gameReleaseYear" value="{{gameReleaseYear}}">
+        </div>
+
+        {{!-- submit --}}
+        <div class="form-group">
+            <button class="btn btn-secondary">Update game</button>
+            <a class="btn btn-outline-secondary" href="/admin/games">Cancel</a>
+        </div>
+    
+    </form>
+    {{/if}}
+
+    {{#if consoleActive}}
+    <h2>Update Console</h2>
+    <form action="/admin/update/console/{{consoleID}}" method="post">
+        {{!-- console name --}}
+        <div class="form-group">
+            <label for="consoleName">Name</label>
+            <input type="text" class="form-control" name="consoleName" id="consoleName" value="{{consoleName}}">
+        </div>
+
+        {{!-- release year --}}
+        <div class="form-group">
+            <label for="consoleReleaseYear">Release Year</label>
+            <input type="number" class="form-control" name= "consoleReleaseYear" id="consoleReleaseYear" value="{{consoleReleaseYear}}">
+        </div>
+
+        {{!-- console developer --}}
+        <div class="form-group">
+            <label for="consoleDeveloper">Developer</label>
+            <input type="text" class="form-control" name="consoleDeveloper" id="consoleDeveloper" value="{{consoleDeveloper}}">
+        </div>
+
+        {{!-- console type --}}
+        <div class="form-group">
+            <label for="consoleType">Console Type</label>
+            <div class="mt-2">
+                <div class="form-check form-check-inline">
+                    <input type="radio" name="consoleType" id="home" value="Home Console" class="form-check-input" {{homeChecked}}>
+                    <label for="home" class="form-check-label">Home</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="radio" name="consoleType" id="handheld" value="Handheld" class="form-check-input" {{handheldChecked}}>
+                    <label for="handheld" class="form-check-label">Handheld</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="radio" name="consoleType" id="hybrid" value="Hybrid" class="form-check-input" {{hybridChecked}}>
+                    <label for="hybrid" class="form-check-label">Hybrid</label>
+                </div>
+            </div>
+        </div>
+
+        {{!-- submit --}}
+        <div class="form-group">
+            <button class="btn btn-secondary">Update console</button>
+            <a class="btn btn-outline-secondary" href="/admin/consoles">Cancel</a>
+        </div>
+    </form>
+    {{/if}}
+
+    {{#if publisherActive}}
+    <h2>Update Publisher</h2>
+    <form action="/admin/update/publisher/{{publisherID}}" method="post">
+        {{!-- game name --}}
+        <div class="form-group">
+            <label for="publisherName">Name</label>
+            <input type="text" class="form-control" name="publisherName" id="publisherName" value="{{publisherName}}">
+        </div>
+
+        {{!-- year founded --}}
+        <div class="form-group">
+            <label for="yearFounded">Year Founded</label>
+            <input type="number" class="form-control" name= "yearFounded" id="yearFounded" value="{{yearFounded}}">
+        </div>
+
+        {{!-- HQ country --}}
+        <div class="form-group">
+            <label for="hqCountry">HQ Country</label>
+            <input type="text" class="form-control" name="hqCountry" id="hqCountry" value="{{hqCountry}}">
+            </select>
+        </div>
+
+        {{!-- CEO --}}
+        <div class="form-group">
+            <label for="ceo">CEO</label>
+            <input type="text" class="form-control" name="ceo" id="ceo" value="{{ceo}}">
+            </select>
+        </div>
+
+        {{!-- submit --}}
+        <div class="form-group">
+            <button class="btn btn-secondary">Update publisher</button>
+            <a class="btn btn-outline-secondary" href="/admin/publishers">Cancel</a>
+        </div>
+    </form>
+    {{/if}}
+
+    {{#if userActive}}
+    <h2>Update User</h2>
+    <form action="/admin/update/user/{{userID}}" method="post">
+        {{!-- username --}}
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" class="form-control" value="{{username}}">
+        </div>
+
+        {{!-- first name (optional) --}}
+        <div class="form-group">
+                <label for="firstName">First name</label>
+                <input type="text" id="firstName" name="firstName" placeholder="optional" class="form-control" value="{{firstName}}">
+        </div>
+
+        {{!-- last name (optional) --}}
+        <div class="form-group">
+                <label for="lastName">Last name</label>
+                <input type="text" id="lastName" name="lastName" placeholder="optional" class="form-control" value="{{lastName}}">
+        </div>
+
+        {{!-- email --}}
+        <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" id="email" name="email" class="form-control" value="{{email}}">
+        </div>
+
+        {{!-- password --}}
+        <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" placeholder="Password update is disabled" disabled>
+        </div>
+
+        {{!-- submit --}}
+        <div class="form-group">
+            <button class="btn btn-secondary">Update user</button>
+            <a class="btn btn-outline-secondary" href="/admin/users">Cancel</a>
+        </div>
+    </form>
+    {{/if}}
+
+
+    
+</div>

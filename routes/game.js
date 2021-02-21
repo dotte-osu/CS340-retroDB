@@ -2,13 +2,10 @@ module.exports = (function () {
     const express = require('express');
     const router = express.Router();
     const mysql = require('../dbcon.js');
-
-    //*****this query needs to be fixed once we update the database*****
     const getGame = "select * "
         + "from Games g "
-        + "join GamesConsoles gc on g.gameID = gc.gameId "
         + "join Publishers p on g.publisherID = p.publisherID "
-        + "join Consoles c on c.consoleID = gc.consoleID "
+        + "join Consoles c on c.consoleID = g.consoleID "
         + "where gameName = ?";
 
 

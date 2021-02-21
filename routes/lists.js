@@ -25,38 +25,44 @@ module.exports = (function() {
 		});
 	}
 
-	function getListNameByID(req, res, mysql, context, complete) {
+	function getListByID(req, res, mysql, context, complete) {
 		const listID = req.query.q;
-		const sqlQuery = 'SELECT listName FROM Lists WHERE listID = ?';
+		const sqlQuery = 'SELECT * FROM Lists WHERE listID = ?';
 		mysql.pool.query(sqlQuery, listID, function(error, results, fields) {
 			if (error) {
 				console.log('Failed to fetch Lists:', error);
 				res.end();
 			}
 			context.name = results[0].listName;
+			context.description = results[0].listDescription;
+
+			// slice lastUpdated
+			var lastUpdated = String(results[0].lastUpdated);
+			lastUpdated = lastUpdated.slice(4, 15);
+			context.lastUpdated = lastUpdated;
 			complete();
 		});
 	}
 
-	function getListDescriptionByID(req, res, mysql, context, complete) {
+	function getUsernameFromListID(req, res, mysql, context, complete) {
 		const listID = req.query.q;
-		const sqlQuery = 'SELECT listDescription FROM Lists WHERE listID = ?';
+		const sqlQuery =
+			'SELECT u.username FROM Users u INNER JOIN Lists l ON l.createdBy = u.userID AND l.listID = ?';
 		mysql.pool.query(sqlQuery, listID, function(error, results, fields) {
 			if (error) {
-				console.log('Failed to fetch Lists:', error);
+				console.log('Failed to fetch Username:', error);
 				res.end();
 			}
-			context.description = results[0].listDescription;
+			context.username = results[0].username;
 			complete();
-		});
+		})
 	}
 
 	function getSortedGames(req, res, mysql, context, complete) {
 		const sqlQuery =
 			'SELECT g.gameID, g.gameName, c.consoleName ' +
 			'FROM Games g ' +
-			'LEFT JOIN GamesConsoles gc ON gc.gameID = g.gameID ' +
-			'LEFT JOIN Consoles c ON gc.consoleID = c.consoleID ' +
+			'LEFT JOIN Consoles c ON g.consoleID = c.consoleID ' +
 			'ORDER BY gameName, consoleName';
 		mysql.pool.query(sqlQuery, function(error, results, fields) {
 			if (error) {
@@ -68,16 +74,42 @@ module.exports = (function() {
 		});
 	}
 
+	function getUserIDFromUsername(req, res, mysql, context, complete) {
+		const sqlQuery = 'SELECT userID FROM Users WHERE username = ?';
+		mysql.pool.query(sqlQuery, req.query.user, function(error, results, fields) {
+			if (error) {
+				console.log('Failed to fetch User:', error);
+				res.end();
+			}
+			context.userID = results[0].userID;
+			complete();
+		});
+	}
+
+	function getDate() {
+		var d = new Date();
+		var year = d.getFullYear();
+		var month = d.getMonth() + 1;
+		if (month <= 9) {
+			month = '0' + month;
+		}
+		var day = d.getDate();
+		if (day <= 9) {
+			day = '0' + day;
+		}
+		var date = year + '-' + month + '-' + day;
+		return date;
+	}
+
 	listRouter.get('/', function(req, res) {
 		var callbackCount = 0;
 		var context = {};
 		getGamesbyListID(req, res, mysql, context, complete);
-		getListNameByID(req, res, mysql, context, complete);
-		getListDescriptionByID(req, res, mysql, context, complete);
+		getListByID(req, res, mysql, context, complete);
+		getUsernameFromListID(req, res, mysql, context, complete);
 		function complete() {
 			callbackCount++;
 			if (callbackCount >= 3) {
-
 				// add order of list
 				for (let i = 0; i < context.games.length; i++) {
 					context.games[i].order = i + 1;
@@ -92,27 +124,53 @@ module.exports = (function() {
 		var callbackCount = 0;
 		var context = {};
 		getSortedGames(req, res, mysql, context, complete);
+		getUserIDFromUsername(req, res, mysql, context, complete);
 		function complete() {
 			callbackCount++;
-			if (callbackCount >= 1) {
-				res.render('create', context);
+			if (callbackCount >= 2) {
+				if (req.session.username == req.query.user) {
+					res.render('create', context);
+				} else {
+					res.redirect('/');
+				}
 			}
 		}
 	});
 
 	listRouter.post('/create', function(req, res) {
-		console.log(req.body)
-		const { name, game } = req.body;
+		var lastUpdated = getDate();
+		console.log(lastUpdated);
 
-		// debug
-		let listInfo = {
-			'Game Name': name,
-			Games: game
-		};
-		// console.log(listInfo);
-		// end debug
+		// insert into list
+		const sqlQuery = 'INSERT INTO Lists (listName, listDescription, lastUpdated, createdBy) VALUES (?, ?, ?, ?)';
+		const inserts = [ req.body.listName, req.body.listDescription, lastUpdated, req.body.createdBy ];
+		mysql.pool.query(sqlQuery, inserts, function(error, results, fields) {
+			if (error) {
+				console.log('Failed to insert List:', error);
+				res.end();
+			}
 
-		res.redirect('/list?q=1');
+			// insert games and list into GamesLists
+			const sqlQuery = 'INSERT INTO GamesLists (listID, gameID) VALUES (?, ?)';
+			const listID = results.insertId;
+			var callbackCount = 0;
+
+			// insert each game in request body
+			for (i = 0; i < req.body.game.length; i++) {
+				const gameID = req.body.game[i];
+				const inserts = [ listID, gameID ];
+				mysql.pool.query(sqlQuery, inserts, function(error, results, fields) {
+					if (error) {
+						console.log('Failed to insert List:', error);
+						res.end();
+					}
+					callbackCount++;
+					if (callbackCount >= req.body.game.length) {
+						res.redirect('/list?q=' + listID);
+					}
+				});
+			}
+		});
 	});
 
 	return listRouter;
