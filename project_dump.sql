@@ -23,17 +23,18 @@ DROP TABLE IF EXISTS `Consoles`;
 CREATE TABLE `Consoles` (
  `consoleID` int(11) not null AUTO_INCREMENT,
  `consoleName` varchar(255) not null,
+ `consoleReleaseYear` int(11),
  `consoleDeveloper` varchar(255),
  `consoleType` varchar(255),
   PRIMARY KEY (`consoleID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- intert dummy data
-INSERT INTO `Consoles`(`consoleName`, `consoleDeveloper`, `consoleType`) 
-VALUES ('Super Nintendo Entertainment System','Nintendo','Home Console'),
-('Nintendo 64','Nintendo','Home Console'),
-('Sega Genesis','Sega','Home Console'),
-('Atari 2600','Atari','Home Console');
+INSERT INTO `Consoles`(`consoleName`, `consoleReleaseYear`, `consoleDeveloper`, `consoleType`) 
+VALUES ('Super Nintendo Entertainment System',1990,'Nintendo','Home Console'),
+('Nintendo 64',1998,'Nintendo','Home Console'),
+('Sega Genesis',1989,'Sega','Home Console'),
+('Atari 2600',1977,'Atari','Home Console');
 
 -- Create Games table
 DROP TABLE IF EXISTS `Games`;
