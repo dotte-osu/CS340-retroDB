@@ -393,5 +393,57 @@ module.exports = (function() {
 		})
 	});
 
+	// deletes a game, redirects to the games page after updating
+	adminRouter.post('/delete/game/:id', function(req, res) {
+		const sqlQuery = 'DELETE FROM Games WHERE gameID = ?';
+
+		mysql.pool.query(sqlQuery, req.params.id, function(error, results, fields) {
+			if (error) {
+				console.log(error);
+				res.end();
+			}
+			res.redirect('/admin/games')
+		})
+	});
+
+	// deletes a console, redirects to the consoles page after updating
+	adminRouter.post('/delete/console/:id', function(req, res) {
+		const sqlQuery = 'DELETE FROM Consoles WHERE consoleID = ?';
+
+		mysql.pool.query(sqlQuery, req.params.id, function(error, results, fields) {
+			if (error) {
+				console.log(error);
+				res.end();
+			}
+			res.redirect('/admin/consoles')
+		})
+	});
+
+	// deletes a publisher, redirects to the publishers page after updating
+	adminRouter.post('/delete/publisher/:id', function(req, res) {
+		const sqlQuery = 'DELETE FROM Publishers WHERE publisherID = ?';
+
+		mysql.pool.query(sqlQuery, req.params.id, function(error, results, fields) {
+			if (error) {
+				console.log(error);
+				res.end();
+			}
+			res.redirect('/admin/publishers')
+		})
+	});
+
+	// deletes a user, redirects to the users page after updating
+	adminRouter.post('/delete/user/:id', function(req, res) {
+		const sqlQuery = 'DELETE FROM Users WHERE userID = ?';
+
+		mysql.pool.query(sqlQuery, req.params.id, function(error, results, fields) {
+			if (error) {
+				console.log(error);
+				res.end();
+			}
+			res.redirect('/admin/users')
+		})
+	});
+
 	return adminRouter;
 })();
