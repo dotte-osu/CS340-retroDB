@@ -42,17 +42,18 @@ DROP TABLE IF EXISTS `Consoles`;
 CREATE TABLE `Consoles` (
  `consoleID` int(11) not null AUTO_INCREMENT,
  `consoleName` varchar(255) not null,
+ `consoleReleaseYear` int(4),
  `consoleDeveloper` varchar(255),
  `consoleType` varchar(255),
   PRIMARY KEY (`consoleID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- intert dummy data
-INSERT INTO `Consoles`(`consoleName`, `consoleDeveloper`, `consoleType`) 
-VALUES ('Super Nintendo Entertainment System','Nintendo','Home Console'),
-('Nintendo 64','Nintendo','Home Console'),
-('Sega Genesis','Sega','Home Console'),
-('Atari 2600','Atari','Home Console');
+INSERT INTO `Consoles`(`consoleName`, `consoleReleaseYear`, `consoleDeveloper`, `consoleType`) 
+VALUES ('Super Nintendo Entertainment System',1996,'Nintendo','Home Console'),
+('Nintendo 64',1990,'Nintendo','Home Console'),
+('Sega Genesis',1989,'Sega','Home Console'),
+('Atari 2600',1977,'Atari','Home Console');
 
 -- Create Lists table
 DROP TABLE IF EXISTS `Lists`;
@@ -99,8 +100,9 @@ CREATE TABLE `Users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- insert dummy data
+-- NOTE: these user aren't accessibly due to password hashing.
+-- I left the INSERTs in for the putpose of the assignment
 INSERT INTO `Users`(`username`, `firstName`, `lastName`, `email`, `password`)
--- NOTE: password will eventually be hashed, then this data will no longer work
 VALUES ('test', 'Foo', 'Bar', 'fake@email.io', 'password1');
 INSERT INTO `Users` (`username`, `email`, `password`)
 VALUES ('noname', 'mystery@aol.com', 'password1');

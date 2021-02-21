@@ -5,7 +5,11 @@ module.exports = (function() {
 	const bodyParser = require('body-parser');
 
 	function getAllGames(req, res, mysql, context, complete) {
-		const sqlQuery = 'SELECT * FROM Games';
+		const sqlQuery =
+			'SELECT g.gameID, g.gameName, g.gameReleaseYear, c.consoleName, p.publisherName ' +
+			'FROM Games g ' +
+			'INNER JOIN Consoles c ON g.consoleID = c.consoleID ' +
+			'INNER JOIN Publishers p ON g.publisherID = p.publisherID';
 		mysql.pool.query(sqlQuery, function(error, results, fields) {
 			if (error) {
 				console.log('Failed to fetch Games:', error);
@@ -131,32 +135,41 @@ module.exports = (function() {
 	});
 
 	// displays page for updating information
-	// TODO: finish this
-	adminRouter.get('/update/:type', function(req, res) {
+	adminRouter.get('/update/game/:id', function(req, res) {
 		var context = { admin: true };
-		var type = req.params.type;
-
-		// determine update type
-		if (type == 'game') {
-			context.gameActive = 'active';
-		}
-		if (type == 'console') {
-			context.consoleActive = 'active';
-		}
-		if (type == 'publisher') {
-			context.publisherActive = 'active';
-		}
-		if (type == 'user') {
-			context.userActive = 'active';
-		}
+		context.gameActive = 'active';
+		// TODO: add game data to context based off of id
 
 		res.render('update', context);
 	});
 
+	adminRouter.get('/update/console/:id', function(req, res) {
+		var context = { admin: true };
+		context.consoleActive = 'active';
+		// TODO: add console data to context based off of id
+
+		res.render('update', context);
+	})
+
+	adminRouter.get('/update/publisher/:id', function(req, res) {
+		var context = { admin: true };
+		context.publisherActive = 'active';
+		// TODO: add publisher data to context based off of id
+
+		res.render('update', context);
+	})
+
+	adminRouter.get('/update/user/:id', function(req, res) {
+		var context = { admin: true };
+		context.userActive = 'active';
+		// TODO: add user data to context based off of id
+
+		res.render('update', context);
+	})
+
 	// adds a game, redirects to the games page after adding
 	adminRouter.post('/games', function(req, res) {
-		const sqlQuery =
-			'INSERT INTO Games (gameName, gameReleaseYear, consoleID, publisherID) VALUES (?, ?, ?, ?)';
+		const sqlQuery = 'INSERT INTO Games (gameName, gameReleaseYear, consoleID, publisherID) VALUES (?, ?, ?, ?)';
 		const inserts = [ req.body.gameName, req.body.gameReleaseYear, req.body.consoleID, req.body.publisherID ];
 		mysql.pool.query(sqlQuery, inserts, function(error, results, fields) {
 			if (error) {
@@ -169,9 +182,8 @@ module.exports = (function() {
 
 	// adds a console, redirects to the consoles page after adding
 	adminRouter.post('/consoles', function(req, res) {
-		const sqlQuery =
-			'INSERT INTO Consoles (consoleName, consoleDeveloper, consoleType) VALUES (?, ?, ?)';
-		const inserts = [ req.body.consoleName, req.body.consoleDeveloper, req.body.consoleType];
+		const sqlQuery = 'INSERT INTO Consoles (consoleName, consoleReleaseYear, consoleDeveloper, consoleType) VALUES (?, ?, ?, ?)';
+		const inserts = [ req.body.consoleName, req.body.consoleReleaseYear, req.body.consoleDeveloper, req.body.consoleType ];
 
 		mysql.pool.query(sqlQuery, inserts, function(error, results, fields) {
 			if (error) {
@@ -184,9 +196,8 @@ module.exports = (function() {
 
 	// adds a publisher, redirects to the publishers page after adding
 	adminRouter.post('/publishers', function(req, res) {
-		const sqlQuery =
-			'INSERT INTO Publishers (publisherName, yearFounded, hqCountry, ceo) VALUES (?, ?, ?, ?)';
-		const inserts = [ req.body.publisherName, req.body.yearFounded, req.body.hqCountry, req.body.ceo];
+		const sqlQuery = 'INSERT INTO Publishers (publisherName, yearFounded, hqCountry, ceo) VALUES (?, ?, ?, ?)';
+		const inserts = [ req.body.publisherName, req.body.yearFounded, req.body.hqCountry, req.body.ceo ];
 
 		mysql.pool.query(sqlQuery, inserts, function(error, results, fields) {
 			if (error) {
