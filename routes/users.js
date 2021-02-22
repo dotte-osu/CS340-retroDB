@@ -117,23 +117,31 @@ module.exports = (function() {
 	userRouter.post('/register', async function(req, res) {
 		if (checkPassword(req.body.password, req.body.confirmPassword)) {
 			// create hash
-			const hash = await bcrypt.hash(req.body.password, 12);
 
-			// create user
-			const sqlQuery =
-				'INSERT INTO Users (username, firstName, lastName, email, password) VALUES (?, ?, ?, ?, ?)';
-			const inserts = [ req.body.username, req.body.firstName, req.body.lastName, req.body.email, hash ];
+			bcrypt.genSalt(12, function(error, salt) {
+				bcrypt.hash(req.body.password, salt, null, function(error, hash) {
+					if (error) {
+						console.log('Error:', error);
+					}
+					// create user
+					const sqlQuery =
+						'INSERT INTO Users (username, firstName, lastName, email, password) VALUES (?, ?, ?, ?, ?)';
+					const inserts = [ req.body.username, req.body.firstName, req.body.lastName, req.body.email, hash ];
+	
+					mysql.pool.query(sqlQuery, inserts, function(error, results, fields) {
+						if (error) {
+							console.log(error);
+							context = { register: true, error: true };
+							res.render('register', context);
+						} else {
+							req.session.username = req.body.username;
+							res.redirect('/user/' + req.body.username);
+						}
+					});
+				});
+			})
 
-			mysql.pool.query(sqlQuery, inserts, function(error, results, fields) {
-				if (error) {
-					console.log(error);
-					context = { register: true, error: true };
-					res.render('register', context);
-				} else {
-					req.session.username = req.body.username;
-					res.redirect('/user/' + req.body.username);
-				}
-			});
+			
 		} else {
 			console.log('Bad password');
 			context = { register: true, error: true };
