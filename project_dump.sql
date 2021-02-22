@@ -11,7 +11,7 @@ CREATE TABLE `Publishers` (
   PRIMARY KEY (`publisherID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- intert dummy data
+-- insert dummy data
 INSERT INTO `Publishers`(`publisherName`, `yearFounded`, `hqCountry`, `ceo`) 
 VALUES ('Nintendo',1889,'Japan','Shuntaro Furukawa'),
 ('Sega',1960,'Japan','Haruki Satomi'),
@@ -29,7 +29,7 @@ CREATE TABLE `Consoles` (
   PRIMARY KEY (`consoleID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- intert dummy data
+-- insert dummy data
 INSERT INTO `Consoles`(`consoleName`, `consoleReleaseYear`, `consoleDeveloper`, `consoleType`) 
 VALUES ('Super Nintendo Entertainment System',1990,'Nintendo','Home Console'),
 ('Nintendo 64',1998,'Nintendo','Home Console'),
@@ -49,7 +49,7 @@ CREATE TABLE `Games` (
   CONSTRAINT `publisher_fk` FOREIGN KEY (`publisherID`) REFERENCES `Publishers` (`publisherID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- intert dummy data
+-- insert dummy data
 INSERT INTO `Games`(`gameName`, `gameReleaseYear`, `consoleID`, `publisherID`) 
 VALUES ('Super Mario',1985,1,1),('Dr. Mario 64',2001,2,1),
 ('Aerobiz Supersonic',1994,3,2),('Sonic the Hedgehog',1991,3,2),
@@ -84,7 +84,7 @@ CREATE TABLE `Lists` (
   `lastUpdated` date,
   `createdBy` int(11),
   PRIMARY KEY (`listID`),
-  CONSTRAINT `createdBy_fk` FOREIGN KEY (`createdBy`) REFERENCES `Users` (`userID`)
+  CONSTRAINT `createdBy_fk` FOREIGN KEY (`createdBy`) REFERENCES `Users` (`userID`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- insert dummy data
@@ -98,8 +98,8 @@ DROP TABLE IF EXISTS `GamesLists`;
 CREATE TABLE `GamesLists` (
   `listID` int(11) NOT NULL,
   `gameID` int(11) NOT NULL,
-  CONSTRAINT `list_fk` FOREIGN KEY (`listID`) REFERENCES `Lists` (`listID`),
-  CONSTRAINT `game_fk` FOREIGN KEY (`gameID`) REFERENCES `Games` (`gameID`)
+  CONSTRAINT `list_fk` FOREIGN KEY (`listID`) REFERENCES `Lists` (`listID`) ON DELETE CASCADE,
+  CONSTRAINT `game_fk` FOREIGN KEY (`gameID`) REFERENCES `Games` (`gameID`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- insert dummy data
