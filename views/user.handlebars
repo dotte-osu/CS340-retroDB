@@ -17,7 +17,16 @@
             <h4 class="">Lists</h4>
             <div class="list-group mb-3">
                 {{#each lists}}
-                <a href="/list?q={{this.listID}}" class="list-group-item list-group-item-action">{{this.listName}}</a>
+                    <a href="/list?q={{this.listID}}" class="list-group-item list-group-item-action">{{this.listName}}
+                        {{#if ../myPage}}
+                            <span class="float-right">
+                                <form action="/user/delete" method="post">
+                                    <input type="hidden" name="listID" value="{{this.listID}}">
+                                    <button class="btn btn-danger">Delete List</button>
+                                </form>
+                            </span>
+                        {{/if}}
+                    </a>
                 {{/each}}
             </div>
                 {{#if myPage}}

@@ -11,18 +11,30 @@
                 <th scope="col">Release Year</th>
                 <th scope="col">Console</th>
                 <th scope="col">Publisher</th>
+                {{#if myPage}}
+                <th scope="col">Remove from list?</th>
+                {{/if}}
             </tr>
         </thead>
         <tbody>
-            {{#each games}}
-            <tr>
-                <th scope="row">{{this.order}}</th>
-                <td>{{this.gameName}}</td>
-                <td>{{this.gameReleaseYear}}</td>
-                <td>{{this.console}}</td>
-                <td>{{this.publisher}}</td>
-            </tr>
-            {{/each}}
+                {{#each games}}
+                <tr>
+                    <th scope="row">{{this.order}}</th>
+                    <td>{{this.gameName}}</td>
+                    <td>{{this.gameReleaseYear}}</td>
+                    <td>{{this.console}}</td>
+                    <td>{{this.publisher}}</td>
+                    {{#if ../myPage}}
+                    <td>
+                        <form action="/list/delete" method="post">
+                            <input type="hidden" name="listID" value="{{../listID}}">
+                            <input type="hidden" name="gameID" value="{{this.gameID}}">
+                            <button class="btn btn-danger">Remove</button>
+                        </form>
+                    </td>
+                    {{/if}}
+                </tr>
+                {{/each}}
         </tbody>
     </table>
 </div>
