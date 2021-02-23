@@ -33,14 +33,18 @@ module.exports = (function() {
 				console.log('Failed to fetch Lists:', error);
 				res.end();
 			}
-			context.name = results[0].listName;
-			context.description = results[0].listDescription;
-			context.listID = results[0].listID;
+			if (!results[0]) {
+				context.failed = true;
+			} else {
+				context.name = results[0].listName;
+				context.description = results[0].listDescription;
+				context.listID = results[0].listID;
 
-			// slice lastUpdated
-			var lastUpdated = String(results[0].lastUpdated);
-			lastUpdated = lastUpdated.slice(4, 15);
-			context.lastUpdated = lastUpdated;
+				// slice lastUpdated
+				var lastUpdated = String(results[0].lastUpdated);
+				lastUpdated = lastUpdated.slice(4, 15);
+				context.lastUpdated = lastUpdated;
+			}
 			complete();
 		});
 	}
@@ -53,7 +57,11 @@ module.exports = (function() {
 				console.log('Failed to fetch Username:', error);
 				res.end();
 			}
-			context.username = results[0].username;
+			if (!results[0]) {
+				context.failed = true;
+			} else {
+				context.username = results[0].username;
+			}
 			complete();
 		});
 	}
@@ -110,16 +118,21 @@ module.exports = (function() {
 		function complete() {
 			callbackCount++;
 			if (callbackCount >= 3) {
-				// add order of list
-				for (let i = 0; i < context.games.length; i++) {
-					context.games[i].order = i + 1;
-				}
+				if (context.failed) {
+					console.log('List not found:', req.query.q);
+					res.redirect('/');
+				} else {
+					// add order of list
+					for (let i = 0; i < context.games.length; i++) {
+						context.games[i].order = i + 1;
+					}
 
-				// check if this is the logged in user's list
-				if (context.username == req.session.username) {
-					context.myPage = true;
+					// check if this is the logged in user's list
+					if (context.username == req.session.username) {
+						context.myPage = true;
+					}
+					res.render('list', context);
 				}
-				res.render('list', context);
 			}
 		}
 	});
@@ -178,15 +191,15 @@ module.exports = (function() {
 
 	listRouter.post('/delete', function(req, res) {
 		const sqlQuery = 'DELETE FROM GamesLists WHERE listID = ? and gameID = ?';
-		const inserts = [req.body.listID, req.body.gameID]
+		const inserts = [ req.body.listID, req.body.gameID ];
 
 		mysql.pool.query(sqlQuery, inserts, function(error, results, fields) {
 			if (error) {
 				console.log('Failed to delete from GamesLists:', error);
 				res.end();
 			}
-			res.redirect('/list?q=' + req.body.listID)
-		})
+			res.redirect('/list?q=' + req.body.listID);
+		});
 	});
 
 	return listRouter;
