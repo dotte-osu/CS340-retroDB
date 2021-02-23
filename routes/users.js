@@ -127,6 +127,11 @@ module.exports = (function() {
 					const sqlQuery =
 						'INSERT INTO Users (username, firstName, lastName, email, password) VALUES (?, ?, ?, ?, ?)';
 					const inserts = [ req.body.username, req.body.firstName, req.body.lastName, req.body.email, hash ];
+					for (var i=0; i<inserts.length; i++) {
+						if (inserts[i] == '') {
+							inserts[i] = null
+						}
+					}
 	
 					mysql.pool.query(sqlQuery, inserts, function(error, results, fields) {
 						if (error) {

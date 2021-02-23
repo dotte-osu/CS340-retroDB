@@ -294,6 +294,12 @@ module.exports = (function() {
 	adminRouter.post('/games', function(req, res) {
 		const sqlQuery = 'INSERT INTO Games (gameName, gameReleaseYear, consoleID, publisherID) VALUES (?, ?, ?, ?)';
 		const inserts = [ req.body.gameName, req.body.gameReleaseYear, req.body.consoleID, req.body.publisherID ];
+		for (var i=0; i<inserts.length; i++) {
+			if (inserts[i] == '') {
+				inserts[i] = null
+			}
+		}
+
 		mysql.pool.query(sqlQuery, inserts, function(error, results, fields) {
 			if (error) {
 				console.log(error);
@@ -313,6 +319,11 @@ module.exports = (function() {
 			req.body.consoleDeveloper,
 			req.body.consoleType
 		];
+		for (var i=0; i<inserts.length; i++) {
+			if (inserts[i] == '') {
+				inserts[i] = null
+			}
+		}
 
 		mysql.pool.query(sqlQuery, inserts, function(error, results, fields) {
 			if (error) {
@@ -327,6 +338,11 @@ module.exports = (function() {
 	adminRouter.post('/publishers', function(req, res) {
 		const sqlQuery = 'INSERT INTO Publishers (publisherName, yearFounded, hqCountry, ceo) VALUES (?, ?, ?, ?)';
 		const inserts = [ req.body.publisherName, req.body.yearFounded, req.body.hqCountry, req.body.ceo ];
+		for (var i=0; i<inserts.length; i++) {
+			if (inserts[i] == '') {
+				inserts[i] = null
+			}
+		}
 
 		mysql.pool.query(sqlQuery, inserts, function(error, results, fields) {
 			if (error) {
@@ -341,6 +357,11 @@ module.exports = (function() {
 	adminRouter.post('/update/game/:id', function(req, res) {
 		const sqlQuery = 'UPDATE Games SET gameName = ?, gameReleaseYear = ?, consoleID = ?, publisherID = ? WHERE gameID = ?';
 		const inserts = [req.body.gameName, req.body.gameReleaseYear, req.body.consoleID, req.body.publisherID, req.params.id];
+		for (var i=0; i<inserts.length; i++) {
+			if (inserts[i] == '') {
+				inserts[i] = null
+			}
+		}
 
 		mysql.pool.query(sqlQuery, inserts, function(error, results, fields) {
 			if (error) {
@@ -355,6 +376,11 @@ module.exports = (function() {
 	adminRouter.post('/update/console/:id', function(req, res) {
 		const sqlQuery = 'UPDATE Consoles SET consoleName = ?, consoleReleaseYear = ?, consoleDeveloper = ?, consoleType = ? WHERE consoleID = ?';
 		const inserts = [req.body.consoleName, req.body.consoleReleaseYear, req.body.consoleDeveloper, req.body.consoleType, req.params.id];
+		for (var i=0; i<inserts.length; i++) {
+			if (inserts[i] == '') {
+				inserts[i] = null
+			}
+		}
 
 		mysql.pool.query(sqlQuery, inserts, function(error, results, fields) {
 			if (error) {
@@ -369,6 +395,11 @@ module.exports = (function() {
 	adminRouter.post('/update/publisher/:id', function(req, res) {
 		const sqlQuery = 'UPDATE Publishers SET publisherName = ?, yearFounded = ?, hqCountry = ?, ceo = ? WHERE publisherID = ?';
 		const inserts = [req.body.publisherName, req.body.yearFounded, req.body.hqCountry, req.body.ceo, req.params.id];
+		for (var i=0; i<inserts.length; i++) {
+			if (inserts[i] == '') {
+				inserts[i] = null
+			}
+		}
 
 		mysql.pool.query(sqlQuery, inserts, function(error, results, fields) {
 			if (error) {
@@ -383,6 +414,11 @@ module.exports = (function() {
 	adminRouter.post('/update/user/:id', function(req, res) {
 		const sqlQuery = 'UPDATE Users SET username = ?, firstName = ?, lastName = ?, email = ? WHERE userID = ?';
 		const inserts = [req.body.username, req.body.firstName, req.body.lastName, req.body.email, req.params.id];
+		for (var i=0; i<inserts.length; i++) {
+			if (inserts[i] == '') {
+				inserts[i] = null
+			}
+		}
 
 		mysql.pool.query(sqlQuery, inserts, function(error, results, fields) {
 			if (error) {
