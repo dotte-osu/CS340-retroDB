@@ -176,5 +176,16 @@ module.exports = (function() {
 		}
 	});
 
+	userRouter.post('/delete', function(req, res) {
+		const sqlQuery = 'DELETE FROM Lists WHERE listID = ?';
+		mysql.pool.query(sqlQuery, req.body.listID, function(error, results, fields) {
+			if (error) {
+				console.log('Failed to delete from Lists:', error);
+				res.end();
+			}
+			res.redirect('/user/' + req.session.username)
+		})
+	});
+
 	return userRouter;
 })();
