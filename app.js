@@ -9,7 +9,11 @@ const bcrypt = require('bcrypt-nodejs');
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
-app.use(session({ secret: 'XTCkQE&t%yRV$2dyn8ZUkt3EKP98gpHB34HX8d&&yJVuPmjMe' }));
+app.use(session({
+	secret: 'XTCkQE&t%yRV$2dyn8ZUkt3EKP98gpHB34HX8d&&yJVuPmjMe',
+	resave: true,
+	saveUninitialized:true
+}));
 
 app.engine(
 	'handlebars',

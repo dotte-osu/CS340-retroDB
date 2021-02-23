@@ -1,3 +1,6 @@
+-- Set SQL mode to strict so updates check NOT NULL constraint
+SET GLOBAL sql_mode = 'STRICT_ALL_TABLES'
+
 -- Dummy dump data
 
 -- Create Publishers table
