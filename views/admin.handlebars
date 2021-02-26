@@ -50,7 +50,7 @@
             <td>{{this.consoleName}}</td>
             <td>{{this.publisherName}}</td>
             <td>
-                <form action="/admin/delete/game/{{this.gameID}}" method="post">
+                <form action="/admin/delete/game/{{this.gameID}}" method="post" onsubmit="return confirm('Do you really want to delete the game?');">
                     <button class="btn btn-danger">Delete</button>
                 </form>
             </td>
@@ -131,7 +131,7 @@
             <td>{{this.consoleDeveloper}}</td>
             <td>{{this.consoleType}}</td>
             <td>
-                <form action="/admin/delete/console/{{this.consoleID}}" method="post">
+                <form action="/admin/delete/console/{{this.consoleID}}" method="post" onsubmit="return confirm('This will delete the games associated with this console. Do you want to delete?');">
                     <button class="btn btn-danger">Delete</button>
                 </form>
             </td>
@@ -217,7 +217,7 @@
             <td>{{this.hqCountry}}</td>
             <td>{{this.ceo}}</td>
             <td>
-                <form action="/admin/delete/publisher/{{this.publisherID}}" method="post">
+                <form action="/admin/delete/publisher/{{this.publisherID}}" method="post" onsubmit="return confirm('This will delete the games associated with this publisher. Do you want to delete?');">
                     <button class="btn btn-danger">Delete</button>
                 </form>
             </td>
@@ -295,7 +295,7 @@
             <td>{{this.lastName}}</td>
             <td>{{this.email}}</td>
             <td>
-                <form action="/admin/delete/user/{{this.userID}}" method="post">
+                <form action="/admin/delete/user/{{this.userID}}" method="post" onsubmit="return confirm('Do you really want to delete the user?');">
                     <button class="btn btn-danger">Delete</button>
                 </form>
             </td>
