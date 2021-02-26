@@ -89,14 +89,13 @@ WHERE l.listID = :listID;
 -- Query for List Creation page (gets a list of all games sorted by game name then console name)
 SELECT g.gameID, g.gameName, c.consoleName
 FROM Games g
-LEFT JOIN GamesConsoles gc ON gc.gameID = g.gameID
-LEFT JOIN Consoles c ON gc.consoleID = c.consoleID
+LEFT JOIN Consoles c ON g.consoleID = c.consoleID
 ORDER BY gameName, consoleName;
 
 
 -- INSERT query for list creation page (creates new list)
 INSERT INTO Lists (listName, listDescription, lastUpdated, createdBy)
-VALUES ():listName, :listDescription, :lastUpdated, :createdBy);
+VALUES (:listName, :listDescription, :lastUpdated, :createdBy);
 
 
 -- INSERT query for list creation page (creates list/game associations)
