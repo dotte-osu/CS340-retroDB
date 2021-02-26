@@ -48,8 +48,8 @@ CREATE TABLE `Games` (
  `consoleID` int(11) not null,
  `publisherID` int(11),
   PRIMARY KEY (`gameID`),
-  CONSTRAINT `console_fk` FOREIGN KEY (`consoleID`) REFERENCES `Consoles` (`consoleID`),
-  CONSTRAINT `publisher_fk` FOREIGN KEY (`publisherID`) REFERENCES `Publishers` (`publisherID`)
+  CONSTRAINT `console_fk` FOREIGN KEY (`consoleID`) REFERENCES `Consoles` (`consoleID`) ON DELETE CASCADE,
+  CONSTRAINT `publisher_fk` FOREIGN KEY (`publisherID`) REFERENCES `Publishers` (`publisherID`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- insert dummy data
