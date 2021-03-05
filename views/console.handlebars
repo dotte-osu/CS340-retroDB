@@ -5,6 +5,12 @@
         <h3>{{this.consoleName}}</h3>
         {{/each}}
     </div>
+    <div>
+        <h4>Release Year: </h4>
+        {{#each rows}}
+        <h3>{{this.consoleReleaseYear}}</h3>
+        {{/each}}
+    </div>
 </div>
 
 
@@ -16,7 +22,7 @@
         {{#each rows}}
         <ul class="list-group list-group-flush">
             <li class="list-group-item">Console: {{this.consoleName}}</li>
-            <li class="list-group-item">Release Type: {{this.consoleType}}</li>
+            <li class="list-group-item">Console Type: {{this.consoleType}}</li>
             <li class="list-group-item">Developer: {{this.consoleDeveloper}}</li>
         </ul>
         {{/each}}

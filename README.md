@@ -1,26 +1,28 @@
 # retroDB
 
-## To run locally:
+## About
+retroDB is a web application that allows users to browse a database of games, consoles and publishers. Users can also create accounts and make lists of games. These lists can be favorites, want-to-play, or whatever the user wants.
 
-```
-git clone https://github.com/xHoudek/retroDB.git
-npm install
-node app.js
-```
+## To run locally
+In order to run this locally, you will need to link to your own SQL database. You can do this using dbcon.js in the root folder. After that, you can simply run `node app.js`, and go to `localhost:[port number]` in your preferred web browser.
 
-If npm install doesn't work, download dependencies listed in `package.json` manually
+## Website images
+The website is not accessible outside of Oregon State. Here are some images to give you an idea of what the website looks like. Be sure to visit the docs folder to see all images of the website!
 
-## Dump Dummy data to SQL
-Impot `project_dump.sql` file to your local sql database. 
+### Home Page
+![Home page](docs/websiteImages/home.png)
 
-### Merging a PR into master (main)
+### Results Page
+![Results page](docs/websiteImages/searchresults.png)
 
-when merging a pull request from `dev` into `main`, be sure to use a ff-only commit so that we keep `dev` and `main` in sync (no extra merge commit):
+### Game Page
+![Game page](docs/websiteImages/gamepage.png)
 
-```
-git checkout dev
-git pull
-git checkout main
-git pull
-git merge dev --ff-only
-```
+### Register Page
+![Register page](docs/websiteImages/register.png)
+
+### User Page
+![User page](docs/websiteImages/userpage.png)
+
+### Admin Page, games section
+![Admin page](docs/websiteImages/admingames.png)

@@ -3,7 +3,7 @@ module.exports = (function () {
     const router = express.Router();
     const mysql = require('../dbcon.js');
 
-    const getPublisher = "Select publisherName, yearFounded, hqCountry from Publishers where publisherName = ?";
+    const getPublisher = "Select publisherName, yearFounded, ceo, hqCountry from Publishers where publisherName = ?";
 
     router.get('/', function (req, res, next) {
         var name = req.query.name;
