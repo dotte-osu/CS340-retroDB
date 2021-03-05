@@ -20,7 +20,7 @@
                     <a href="/list?q={{this.listID}}" class="list-group-item list-group-item-action">{{this.listName}}
                         {{#if ../myPage}}
                             <span class="float-right">
-                                <form action="/user/delete" method="post">
+                                <form action="/user/delete" method="post" onsubmit="return confirm('Do you really want to delete this list?');">
                                     <input type="hidden" name="listID" value="{{this.listID}}">
                                     <button class="btn btn-danger">Delete List</button>
                                 </form>
