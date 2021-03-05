@@ -26,7 +26,7 @@
                     <td>{{this.publisher}}</td>
                     {{#if ../myPage}}
                     <td>
-                        <form action="/list/delete" method="post">
+                        <form action="/list/delete" method="post" onsubmit="return confirm('Do you really want to remove this game from the list?');">
                             <input type="hidden" name="listID" value="{{../listID}}">
                             <input type="hidden" name="gameID" value="{{this.gameID}}">
                             <button class="btn btn-danger">Remove</button>
