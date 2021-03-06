@@ -144,8 +144,8 @@ DELETE FROM Users WHERE userID = :userID;
 
 
 -- DELETE queries for Lists page
-DELETE FROM Lists WHERE listID = :listID;
-DELETE FROM GamesLists WHERE listID = :listID;
+DELETE FROM Lists WHERE listID = :listID;  -- cascades to delete from GamesLists
+DELETE FROM GamesLists WHERE gameID = :gameID;  -- deletes one game from list
 
 
 -- INSERT query for Register page
