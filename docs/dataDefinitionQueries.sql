@@ -18,6 +18,8 @@ CREATE TABLE `Publishers` (
 INSERT INTO `Publishers`(`publisherName`, `yearFounded`, `hqCountry`, `ceo`) 
 VALUES ('Nintendo',1889,'Japan','Shuntaro Furukawa'),
 ('Sega',1960,'Japan','Haruki Satomi'),
+('Capcom',1979,'Japan','Kenzo Tsujimoto'),
+('Electronic Arts',1982,'United States','Andrew Wilson'),
 ('Atari',1972,'United States','Frederic Chesnais');
 
 
@@ -37,6 +39,7 @@ INSERT INTO `Consoles`(`consoleName`, `consoleReleaseYear`, `consoleDeveloper`, 
 VALUES ('Super Nintendo Entertainment System',1990,'Nintendo','Home Console'),
 ('Nintendo 64',1998,'Nintendo','Home Console'),
 ('Sega Genesis',1989,'Sega','Home Console'),
+('PlayStation',1994,'Sony','Home Console'),
 ('Atari 2600',1977,'Atari','Home Console');
 
 -- Create Games table
@@ -72,11 +75,14 @@ CREATE TABLE `Users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- insert dummy data
+-- NOTE: These user do not work because the real passwords are hashed and these password are not
 INSERT INTO `Users`(`username`, `firstName`, `lastName`, `email`, `password`)
--- NOTE: password will eventually be hashed, then this data will no longer work
-VALUES ('test', 'Foo', 'Bar', 'fake@email.io', 'password1');
+VALUES ('test', 'Foo', 'Bar', 'fake@email.io', 'password1'),
+('test2', 'Baz', 'Bar', 'fake2@email.io', 'password2'),
+('test3', 'Foo', 'Baz', 'fake3@email.io', 'password3');
 INSERT INTO `Users` (`username`, `email`, `password`)
-VALUES ('noname', 'mystery@aol.com', 'password1');
+VALUES ('noname', 'mystery@aol.com', 'password1'),
+('noname2', 'mystery2@aol.com', 'password2');
 
 -- Create Lists table
 DROP TABLE IF EXISTS `Lists`;
@@ -94,7 +100,9 @@ CREATE TABLE `Lists` (
 INSERT INTO `Lists` (`listName`, `listDescription`, `lastUpdated`, `createdBy`)
 VALUES ('My Favorites', 'My favorite games', '2020-02-02', 1),
 ('Want to play', 'all of the games that I want to play', '2020-01-29', 2),
-('My fav game', 'this is literally the best game ever made', '2020-02-07', 2);
+('My fav game', 'this is literally the best game ever made', '2020-02-07', 2),
+('Mario', 'mario games', '2020-03-06', 1),
+('Sonic', 'sanic gaems', '2020-03-06', 3);
 
 -- Create GamesLists table
 DROP TABLE IF EXISTS `GamesLists`;
@@ -107,5 +115,4 @@ CREATE TABLE `GamesLists` (
 
 -- insert dummy data
 INSERT INTO `GamesLists`(`listID`, `gameID`)
-VALUES (1,1),(1,2),(1,4),(2,3),(2,5),(2,6),(3,6);
-
+VALUES (1,1),(1,2),(1,4),(2,3),(2,5),(2,6),(3,6),(4,1),(4,2),(5,4),(5,5);
