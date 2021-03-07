@@ -1,8 +1,3 @@
--- Set SQL mode to strict so updates check NOT NULL constraint
-SET GLOBAL sql_mode = 'STRICT_ALL_TABLES'
-
--- Dummy dump data
-
 -- Create Publishers table
 DROP TABLE IF EXISTS `Publishers`;
 CREATE TABLE `Publishers` (
@@ -59,7 +54,7 @@ CREATE TABLE `Games` (
 INSERT INTO `Games`(`gameName`, `gameReleaseYear`, `consoleID`, `publisherID`) 
 VALUES ('Super Mario',1985,1,1),('Dr. Mario 64',2001,2,1),
 ('Aerobiz Supersonic',1994,3,2),('Sonic the Hedgehog',1991,3,2),
-('Sonic Spinball',1993,3,2),('E.T. the Extra-Terrestrial',1982,4,3);
+('Sonic Spinball',1993,3,2),('E.T. the Extra-Terrestrial',1982,5,5);
 
 -- Create Users table
 DROP TABLE IF EXISTS `Users`;
